@@ -2,7 +2,7 @@
 
 [![Docker Layers](https://img.shields.io/badge/docker%20layers-2-blue.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) [![Docker Size](https://img.shields.io/badge/docker%20size-12.5%20MB-blue.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) [![Docker Stars](https://img.shields.io/docker/stars/yobasystems/alpine-mariadb.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) [![Docker Pulls](https://img.shields.io/docker/pulls/yobasystems/alpine-mariadb.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-mariadb/)
 
-[![Alpine Version](https://img.shields.io/badge/alpine%20version-v3.4-green.svg?maxAge=2592000?style=flat-square)](http://alpinelinux.org/) [![nodejs Version](https://img.shields.io/badge/nodejs%20version-v5.12.0-green.svg?maxAge=2592000?style=flat-square)](http://nginx.org/en/) [![NPM Version](https://img.shields.io/badge/NPM%20version-v3-green.svg?maxAge=2592000?style=flat-square)](http://nginx.org/en/)
+[![Alpine Version](https://img.shields.io/badge/alpine%20version-v3.4-green.svg?maxAge=2592000?style=flat-square)](http://alpinelinux.org/) [![MariaDB Version](https://img.shields.io/badge/Mariadb%20version-v10.1.14r3-green.svg?maxAge=2592000?style=flat-square)](http://nginx.org/en/)
 
 
 This Docker image [(yobasystems/alpine-mariadb)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) is based on the minimal [Alpine Linux](http://alpinelinux.org/) with [Mariadb 10.1.14-r3](https://mariadb.org/) (MySQL Compatible) database server.
