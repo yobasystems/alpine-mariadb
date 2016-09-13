@@ -1,21 +1,21 @@
-# Alpine MariaDB Docker image
+# MariaDB Docker image running on Alpine Linux
 
-[![Docker Stars](https://img.shields.io/docker/stars/yobasystems/alpine-mariadb.svg)](https://imagelayers.io/?images=yobasystems/alpine-mariadb:latest)
+[![Docker Layers](https://img.shields.io/badge/docker%20layers-2-blue.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) [![Docker Size](https://img.shields.io/badge/docker%20size-12.5%20MB-blue.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) [![Docker Stars](https://img.shields.io/docker/stars/yobasystems/alpine-mariadb.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) [![Docker Pulls](https://img.shields.io/docker/pulls/yobasystems/alpine-mariadb.svg?maxAge=2592000?style=flat-square)](https://hub.docker.com/r/yobasystems/alpine-mariadb/)
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/yobasystems/alpine-mariadb.svg)](https://imagelayers.io/?images=yobasystems/alpine-mariadb:latest)
-
-[![Latest](https://badge.imagelayers.io/yobasystems/alpine-mariadb.svg)](https://imagelayers.io/?images=yobasystems/alpine-mariadb:latest 'latest')
-
-[![Image Layers](https://img.shields.io/imagelayers/layers/yobasystems/alpine-mariadb/latest.svg)](https://imagelayers.io/?images=yobasystems/alpine-mariadb:latest)
+[![Alpine Version](https://img.shields.io/badge/alpine%20version-v3.4-green.svg?maxAge=2592000?style=flat-square)](http://alpinelinux.org/) [![nodejs Version](https://img.shields.io/badge/nodejs%20version-v5.12.0-green.svg?maxAge=2592000?style=flat-square)](http://nginx.org/en/) [![NPM Version](https://img.shields.io/badge/NPM%20version-v3-green.svg?maxAge=2592000?style=flat-square)](http://nginx.org/en/)
 
 
-[This](https://hub.docker.com/r/yobasystems/alpine-mariadb/) Docker image is based on the minimal [Alpine Linux](http://alpinelinux.org/) using the [Mariadb 5.5.47-r0](https://mariadb.org/) (MySQL Compatible) database server.
+This Docker image [(yobasystems/alpine-mariadb)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) is based on the minimal [Alpine Linux](http://alpinelinux.org/) with [Mariadb 10.1.14-r3](https://mariadb.org/) (MySQL Compatible) database server.
+
 
 ## Features
 
-  * Minimal size: 156Mb uncompressed, and only 9 layers.
+  * Minimal size only
+    * 12.5 MB and only 2 layers
+    * 11.1 MB and only 2 layers :min version
   * Memory usage is minimal on a simple install.
-  * Mariadb Version 5.5.47-r0
+  * Mariadb Version 10.1.14-r3
+
 
 
 ## Creating an instance

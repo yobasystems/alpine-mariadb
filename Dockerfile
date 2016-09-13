@@ -1,10 +1,8 @@
-FROM alpine:3.2
+FROM alpine:3.4
 MAINTAINER Dominic Taylor <dominic@yobasystems.co.uk>
 
-RUN echo '@mariadb5.5.47-r0 http://dl-cdn.alpinelinux.org/alpine/v3.2/main' >> /etc/apk/repositories
-
-RUN apk --update add mariadb@mariadb5.5.47-r0 mariadb-client@mariadb5.5.47-r0 pwgen && rm -f /var/cache/apk/* && \
-    echo "Success"
+RUN apk --update add mariadb mariadb-client pwgen && \
+    rm -f /var/cache/apk/*
 
 ADD files/run.sh /scripts/run.sh
 RUN mkdir /scripts/pre-exec.d && \
