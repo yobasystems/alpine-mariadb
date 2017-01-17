@@ -1,4 +1,4 @@
-FROM alpine:3.4
+FROM alpine:3.5
 MAINTAINER Dominic Taylor <dominic@yobasystems.co.uk>
 
 RUN apk --update add mariadb mariadb-client pwgen && \
