@@ -13,6 +13,14 @@ This Docker image [(yobasystems/alpine-mariadb)](https://hub.docker.com/r/yobasy
   * Minimal size only 48 MB and only 4 layers
   * Memory usage is minimal on a simple install.
   * Mariadb Version 10.1.21
+  * Armv7 (armhf) version with ```:armhf``` tag
+
+## Tags
+
+* ```:latest``` latest nginx & alpine
+* ```:master``` master branch usually inline with latest
+* ```:v0.0.0``` version number related to nginx version
+* ```:armhf``` Armv7 based on latest tag but arm architecture
 
 
 

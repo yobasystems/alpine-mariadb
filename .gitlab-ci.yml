@@ -28,3 +28,17 @@ Gitlab Container Registry build:
     - docker build -t $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:master -t $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:latest .
     - docker push $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:master
     - docker push $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:latest
+
+
+ARM Gitlab Container Registry build:
+  stage: yobasystems/alpine-dind:armhf
+  stage: build
+  tags:
+    - armhf
+  script:
+    - apk add --update git
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_REGISTRY
+    - cd $ARM_FOLDER && docker build -t $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:$ARM_NAME -t $DOCKER_REGISTRY_DOCKERHUB_REPO:$ARM_NAME -t $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:$ARM_NAME .
+    - docker push $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:$ARM_NAME
+    - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD && docker push $DOCKER_REGISTRY_DOCKERHUB_REPO:$ARM_NAME
+    - docker login quay.io -u $QUAY_USERNAME -p $QUAY_PASSWORD && docker push $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:$ARM_NAME
