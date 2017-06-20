@@ -2,26 +2,11 @@ stages:
   - build
   - deploy
 
-Github Mirror:
+amd64 build:
+  stage: docker:dind
   stage: build
-  script:
-    - git push --mirror https://$GITHUB_USERNAME:$GITHUB_PASSWORD@$GITHUB_REPO
-    - git push https://$GITHUB_USERNAME:$GITHUB_PASSWORD@$GITHUB_REPO HEAD:master
-
-Bitbucket Mirror:
-  stage: build
-  script:
-    - mkdir -p ~/.ssh
-    - echo "$BB_SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
-    - chmod 600 ~/.ssh/id_rsa
-    - ssh-keyscan -H 'bitbucket.org' >> ~/.ssh/known_hosts
-    - git push --mirror git@$BITBUCKET_REPO
-    - git push git@$BITBUCKET_REPO HEAD:master
-
-Gitlab Container Registry build:
-  services:
-    - docker:dind
-  stage: build
+  tags:
+    - amd64
   script:
     - apk add --update git
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_REGISTRY
@@ -30,7 +15,7 @@ Gitlab Container Registry build:
     - docker push $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:latest
 
 
-ARM Gitlab Container Registry build:
+arm32v7 build:
   stage: yobasystems/alpine-dind:armhf
   stage: build
   tags:
@@ -42,3 +27,23 @@ ARM Gitlab Container Registry build:
     - docker push $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:$ARM_NAME
     - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD && docker push $DOCKER_REGISTRY_DOCKERHUB_REPO:$ARM_NAME
     - docker login quay.io -u $QUAY_USERNAME -p $QUAY_PASSWORD && docker push quay.io/$DOCKER_REGISTRY_QUAY_REPO:$ARM_NAME
+
+Github Mirror:
+  stage: deploy
+  tags:
+    - deploy
+  script:
+    - git push --mirror https://$GITHUB_USERNAME:$GITHUB_PASSWORD@$GITHUB_REPO
+    - git push https://$GITHUB_USERNAME:$GITHUB_PASSWORD@$GITHUB_REPO HEAD:master
+
+Bitbucket Mirror:
+  stage: deploy
+  tags:
+    - deploy
+  script:
+    - mkdir -p ~/.ssh
+    - echo "$BB_SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - ssh-keyscan -H 'bitbucket.org' >> ~/.ssh/known_hosts
+    - git push --mirror git@$BITBUCKET_REPO
+    - git push git@$BITBUCKET_REPO HEAD:master

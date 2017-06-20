@@ -1,4 +1,4 @@
-FROM armhf/alpine:3.5
+FROM yobasystems/alpine:armhf
 MAINTAINER Dominic Taylor <dominic@yobasystems.co.uk>
 
 RUN apk --update add mariadb mariadb-client pwgen && \
