@@ -44,9 +44,8 @@ else
 	cat << EOF > $tfile
 USE mysql;
 FLUSH PRIVILEGES;
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
-UPDATE user SET password=PASSWORD("$MYSQL_ROOT_PASSWORD") WHERE user='root';
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' identified by '$MYSQL_ROOT_PASSWORD' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' identified by 'MYSQL_ROOT_PASSWORD' WITH GRANT OPTION;
 UPDATE user SET password=PASSWORD("") WHERE user='root' AND host='localhost';
 EOF
 
