@@ -1,5 +1,5 @@
 FROM yobasystems/alpine:amd64
-MAINTAINER Dominic Taylor <dominic@yobasystems.co.uk>
+LABEL maintainer "Dominic Taylor <dominic@yobasystems.co.uk>" architecture="AMD64/x86_64"
 
 RUN apk --update add mariadb mariadb-client pwgen && \
     rm -f /var/cache/apk/*
