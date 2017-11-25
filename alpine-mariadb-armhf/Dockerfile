@@ -1,5 +1,5 @@
 FROM yobasystems/alpine:armhf
-LABEL maintainer "Dominic Taylor <dominic@yobasystems.co.uk>" architecture="ARM32v7/armhf" version="10.1.26"
+LABEL maintainer "Dominic Taylor <dominic@yobasystems.co.uk>" architecture="ARM32v7/armhf" version="10.1.26" date="25-nov-2017"
 
 RUN apk --update add mariadb mariadb-client pwgen && \
     rm -f /var/cache/apk/*
