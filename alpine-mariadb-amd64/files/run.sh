@@ -8,6 +8,8 @@ do
 	fi
 done
 
+echo "!includedir /etc/mysql/conf.d/" >>/etc/mysql/my.cnf \
+
 if [ -d "/run/mysqld" ]; then
 	echo "[i] mysqld already present, skipping creation"
 	chown -R mysql:mysql /run/mysqld
@@ -47,6 +49,7 @@ FLUSH PRIVILEGES;
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' identified by '$MYSQL_ROOT_PASSWORD' WITH GRANT OPTION;
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' identified by '$MYSQL_ROOT_PASSWORD' WITH GRANT OPTION;
 UPDATE user SET password=PASSWORD("") WHERE user='root' AND host='localhost';
+DROP DATABASE test;
 EOF
 
 	if [ "$MYSQL_DATABASE" != "" ]; then
