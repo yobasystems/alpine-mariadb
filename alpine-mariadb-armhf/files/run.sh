@@ -8,8 +8,6 @@ do
 	fi
 done
 
-echo "!includedir /etc/mysql/conf.d/" >>/etc/mysql/my.cnf \
-
 if [ -d "/run/mysqld" ]; then
 	echo "[i] mysqld already present, skipping creation"
 	chown -R mysql:mysql /run/mysqld
