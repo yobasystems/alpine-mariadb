@@ -73,4 +73,5 @@ do
 	fi
 done
 
-exec /usr/bin/mysqld --user=mysql --console
+echo "exec /usr/bin/mysqld --user=mysql --console" "$@"
+exec /usr/bin/mysqld --user=mysql --console $@
