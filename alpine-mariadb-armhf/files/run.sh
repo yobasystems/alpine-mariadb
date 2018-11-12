@@ -1,4 +1,10 @@
 #!/bin/sh
+
+# if command starts with an option, prepend mysqld
+if [ "${1:0:1}" = '-' ]; then
+	set -- mysqld "$@"
+fi
+
 # execute any pre-init scripts
 for i in /scripts/pre-init.d/*sh
 do
@@ -82,6 +88,10 @@ for f in /docker-entrypoint-initdb.d/*; do
 	esac
 	echo
 done
+
+SOCKET="$(_get_config 'socket' "$@")"
+"$@" --skip-networking --socket="${SOCKET}" &
+pid="$!"
 
 if ! kill -s TERM "$pid" || ! wait "$pid"; then
 		echo >&2 'MySQL init process failed.'
