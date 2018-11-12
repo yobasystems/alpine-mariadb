@@ -5,6 +5,11 @@ if [ "${1:0:1}" = '-' ]; then
 	set -- mysqld "$@"
 fi
 
+_get_config() {
+	local conf="$1"; shift
+	"$@" --verbose --help --log-bin-index="$(mktemp -u)" 2>/dev/null | awk '$1 == "'"$conf"'" { print $2; exit }'
+}
+
 # execute any pre-init scripts
 for i in /scripts/pre-init.d/*sh
 do
