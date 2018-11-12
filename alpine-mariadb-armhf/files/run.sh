@@ -68,6 +68,21 @@ EOF
 
 	/usr/bin/mysqld --user=mysql --bootstrap --verbose=0 < $tfile
 	rm -f $tfile
+
+	for f in /docker-entrypoint-initdb.d/*; do
+		case "$f" in
+			*.sql)    echo "$0: running $f"; mysql -u "$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE" < "$f"; echo ;;
+			*.sql.gz) echo "$0: running $f"; gunzip -c "$f" | mysql -u "$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE" < "$f"; echo ;;
+			*)        echo "$0: ignoring $f" ;;
+		esac
+		echo
+	done
+
+	echo
+	echo 'MySQL init process done. Ready for start up.'
+	echo
+
+	echo "exec /usr/bin/mysqld --user=mysql --console" "$@"
 fi
 
 # execute any pre-exec scripts
@@ -78,21 +93,5 @@ do
 		. ${i}
 	fi
 done
-
-for f in /docker-entrypoint-initdb.d/*; do
-	case "$f" in
-		*.sh)     echo "$0: running $f"; . "$f" ;;
-		*.sql)    echo "$0: running $f"; "${mysql[@]}" < "$f"; echo ;;
-		*.sql.gz) echo "$0: running $f"; gunzip -c "$f" | "${mysql[@]}"; echo ;;
-		*)        echo "$0: ignoring $f" ;;
-	esac
-	echo
-done
-
-echo
-echo 'MySQL init process done. Ready for start up.'
-echo
-
-echo "exec /usr/bin/mysqld --user=mysql --console" "$@"
 
 exec /usr/bin/mysqld --user=mysql --console $@
