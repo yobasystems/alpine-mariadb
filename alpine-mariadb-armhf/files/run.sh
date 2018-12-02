@@ -1,10 +1,5 @@
 #!/bin/sh
 
-# if command starts with an option, prepend mysqld
-if [ "${1:0:1}" = '-' ]; then
-	set -- mysqld "$@"
-fi
-
 # execute any pre-init scripts
 for i in /scripts/pre-init.d/*sh
 do
