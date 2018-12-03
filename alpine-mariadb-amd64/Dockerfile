@@ -1,5 +1,6 @@
 FROM yobasystems/alpine:3.8.1-amd64
-LABEL maintainer "Dominic Taylor <dominic@yobasystems.co.uk>" architecture="AMD64/x86_64" version="10.2.15" alpineversion="3.8.1" build="01-dec-2018" container-build="$CI_COMMIT_SHA"
+LABEL maintainer "Dominic Taylor <dominic@yobasystems.co.uk>" architecture="AMD64/x86_64"
+LABEL mariadb-version="10.2.15" alpine-version="3.8.1" build="03-dec-2018" container-build="$CI_COMMIT_SHA"
 
 RUN apk add --no-cache mariadb mariadb-client pwgen && \
     rm -f /var/cache/apk/*
