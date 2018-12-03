@@ -38,7 +38,7 @@ MariaDB is developed as open source software and as a relational database it pro
 * ```:arm64v8```, ```:aarch64``` - 64 bit ARM (ARMv8/aarch64)
 * ```:arm32v7```, ```:armhf``` - 32 bit ARM (ARMv7/armhf)
 
-#### PLEASE CHECK TAGS BELOW FOR SUPPORTED ARCHITECTURES, THE ABOVE IS A LIST OF EXPLANATION
+##### PLEASE CHECK TAGS BELOW FOR SUPPORTED ARCHITECTURES, THE ABOVE IS A LIST OF EXPLANATION
 
 ## Tags
 
@@ -48,14 +48,15 @@ MariaDB is developed as open source software and as a relational database it pro
 * ```:aarch64```, ```:arm64v8``` Armv8 based on latest tag but arm64 architecture
 * ```:armhf```, ```:arm32v7``` Armv7 based on latest tag but arm32 architecture
 
----
+## Layers & Sizes
+
 [![Version](https://img.shields.io/badge/version-amd64-blue.svg?style=for-the-badge)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) [![MicroBadger Layers (tag)](https://img.shields.io/microbadger/layers/yobasystems/alpine-mariadb/amd64.svg?style=for-the-badge)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) [![MicroBadger Size (tag)](https://img.shields.io/microbadger/image-size/yobasystems/alpine-mariadb/amd64.svg?style=for-the-badge)](https://hub.docker.com/r/yobasystems/alpine-mariadb/)
 
 [![Version](https://img.shields.io/badge/version-aarch64-blue.svg?style=for-the-badge)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) [![MicroBadger Layers (tag)](https://img.shields.io/microbadger/layers/yobasystems/alpine-mariadb/aarch64.svg?style=for-the-badge)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) [![MicroBadger Size (tag)](https://img.shields.io/microbadger/image-size/yobasystems/alpine-mariadb/aarch64.svg?style=for-the-badge)](https://hub.docker.com/r/yobasystems/alpine-mariadb/)
 
 [![Version](https://img.shields.io/badge/version-armhf-blue.svg?style=for-the-badge)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) [![MicroBadger Layers (tag)](https://img.shields.io/microbadger/layers/yobasystems/alpine-mariadb/armhf.svg?style=for-the-badge)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) [![MicroBadger Size (tag)](https://img.shields.io/microbadger/image-size/yobasystems/alpine-mariadb/armhf.svg?style=for-the-badge)](https://hub.docker.com/r/yobasystems/alpine-mariadb/)
 
----
+
 
 ## Volume structure
 
@@ -101,7 +102,7 @@ When a container is started for the first time, a new database with the specifie
 
 ## Docker Compose example:
 
-#### (Please pass your own credentials or let them be generated automatically, don't use these ones for production!!)
+##### (Please pass your own credentials or let them be generated automatically, don't use these ones for production!!)
 
 ```yalm
 mysql:
