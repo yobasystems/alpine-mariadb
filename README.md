@@ -45,14 +45,15 @@ MariaDB is developed as open source software and as a relational database it pro
 * ```:latest``` latest branch
 * ```:master``` master branch usually inline with latest
 * ```:amd64``` Amd64 based on latest tag but amd64 architecture
-
-[![Version](https://img.shields.io/badge/version-amd64-blue.svg?style=for-the-badge)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) [![MicroBadger Layers (tag)](https://img.shields.io/microbadger/layers/yobasystems/alpine-mariadb/amd64.svg?style=for-the-badge)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) [![MicroBadger Size (tag)](https://img.shields.io/microbadger/image-size/yobasystems/alpine-mariadb/amd64.svg?style=for-the-badge)](https://hub.docker.com/r/yobasystems/alpine-mariadb/)
 * ```:aarch64```, ```:arm64v8``` Armv8 based on latest tag but arm64 architecture
-
-[![Version](https://img.shields.io/badge/version-aarch64-blue.svg?style=for-the-badge)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) [![MicroBadger Layers (tag)](https://img.shields.io/microbadger/layers/yobasystems/alpine-mariadb/aarch64.svg?style=for-the-badge)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) [![MicroBadger Size (tag)](https://img.shields.io/microbadger/image-size/yobasystems/alpine-mariadb/aarch64.svg?style=for-the-badge)](https://hub.docker.com/r/yobasystems/alpine-mariadb/)
 * ```:armhf```, ```:arm32v7``` Armv7 based on latest tag but arm32 architecture
 
+---
+[![Version](https://img.shields.io/badge/version-amd64-blue.svg?style=for-the-badge)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) [![MicroBadger Layers (tag)](https://img.shields.io/microbadger/layers/yobasystems/alpine-mariadb/amd64.svg?style=for-the-badge)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) [![MicroBadger Size (tag)](https://img.shields.io/microbadger/image-size/yobasystems/alpine-mariadb/amd64.svg?style=for-the-badge)](https://hub.docker.com/r/yobasystems/alpine-mariadb/)
+[![Version](https://img.shields.io/badge/version-aarch64-blue.svg?style=for-the-badge)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) [![MicroBadger Layers (tag)](https://img.shields.io/microbadger/layers/yobasystems/alpine-mariadb/aarch64.svg?style=for-the-badge)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) [![MicroBadger Size (tag)](https://img.shields.io/microbadger/image-size/yobasystems/alpine-mariadb/aarch64.svg?style=for-the-badge)](https://hub.docker.com/r/yobasystems/alpine-mariadb/)
 [![Version](https://img.shields.io/badge/version-armhf-blue.svg?style=for-the-badge)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) [![MicroBadger Layers (tag)](https://img.shields.io/microbadger/layers/yobasystems/alpine-mariadb/armhf.svg?style=for-the-badge)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) [![MicroBadger Size (tag)](https://img.shields.io/microbadger/image-size/yobasystems/alpine-mariadb/armhf.svg?style=for-the-badge)](https://hub.docker.com/r/yobasystems/alpine-mariadb/)
+
+---
 
 ## Volume structure
 
