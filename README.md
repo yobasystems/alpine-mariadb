@@ -1,11 +1,11 @@
 # MariaDB Docker image running on Alpine Linux
 
-[![Docker Automated build](https://img.shields.io/docker/automated/yobasystems/alpine-mariadb.svg?style=for-the-badge)](https://hub.docker.com/r/yobasystems/alpine-mariadb/)
-[![Docker Pulls](https://img.shields.io/docker/pulls/yobasystems/alpine-mariadb.svg?style=for-the-badge)](https://hub.docker.com/r/yobasystems/alpine-mariadb/)
-[![Docker Stars](https://img.shields.io/docker/stars/yobasystems/alpine-mariadb.svg?style=for-the-badge)](https://hub.docker.com/r/yobasystems/alpine-mariadb/)
+[![Docker Automated build](https://img.shields.io/docker/automated/yobasystems/alpine-mariadb.svg?style=for-the-badge&logo=docker)](https://hub.docker.com/r/yobasystems/alpine-mariadb/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/yobasystems/alpine-mariadb.svg?style=for-the-badge&logo=docker)](https://hub.docker.com/r/yobasystems/alpine-mariadb/)
+[![Docker Stars](https://img.shields.io/docker/stars/yobasystems/alpine-mariadb.svg?style=for-the-badge&logo=docker)](https://hub.docker.com/r/yobasystems/alpine-mariadb/)
 
-[![Alpine Version](https://img.shields.io/badge/Alpine%20version-v3.8.1-green.svg?maxAge=2592000?style=for-the-badge)](http://alpinelinux.org/)
-[![MariaDB Version](https://img.shields.io/badge/Mariadb%20version-v10.2.15-green.svg?maxAge=2592000?style=for-the-badge)](https://mariadb.org/)
+[![Alpine Version](https://img.shields.io/badge/Alpine%20version-v3.8.1-green.svg?style=for-the-badge)](http://alpinelinux.org/)
+[![MariaDB Version](https://img.shields.io/badge/Mariadb%20version-v10.2.15-green.svg?style=for-the-badge)](https://mariadb.org/)
 
 
 This Docker image [(yobasystems/alpine-mariadb)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) is based on the minimal [Alpine Linux](https://alpinelinux.org/) with [MariaDB v10.2.15](https://mariadb.org/) (MySQL Compatible) database server.
