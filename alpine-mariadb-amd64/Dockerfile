@@ -1,7 +1,7 @@
 FROM yobasystems/alpine:3.8.1-amd64
-LABEL maintainer "Dominic Taylor <dominic@yobasystems.co.uk>" architecture="AMD64/x86_64" version="10.2.15" alpineversion="3.8.1" build="15-nov-2018"
+LABEL maintainer "Dominic Taylor <dominic@yobasystems.co.uk>" architecture="AMD64/x86_64" version="10.2.15" alpineversion="3.8.1" build="01-dec-2018" container-build="$COMMIT_TIME"
 
-RUN apk --update add mariadb mariadb-client pwgen && \
+RUN apk add --no-cache mariadb mariadb-client pwgen && \
     rm -f /var/cache/apk/*
 
 ADD files/run.sh /scripts/run.sh
