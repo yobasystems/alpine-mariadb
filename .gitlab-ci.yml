@@ -55,7 +55,7 @@ arm64v8 mariadb build:
 
 container_scanning:
   stage: yobasystems/alpine-docker:amd64-dind
-  stage: build
+  stage: test
   tags:
     - amd64
   variables:
