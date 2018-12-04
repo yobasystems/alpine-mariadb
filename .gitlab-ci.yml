@@ -55,7 +55,7 @@ container_scanning:
   stage: deploy
   image: yobasystems/alpine-docker:amd64
   tags:
-    - amd64
+    - security
   variables:
     DOCKER_DRIVER: overlay2
     CI_APPLICATION_REPOSITORY: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG
