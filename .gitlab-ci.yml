@@ -52,30 +52,30 @@ arm64v8 mariadb build:
     - echo "$QUAY_PASSWORD" | docker login -u "$QUAY_USERNAME" quay.io --password-stdin && docker push $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:aarch64
 
 container_scanning:
-  stage: yobasystems/alpine-docker:amd64-dind
-  stage: deploy
-  tags:
-    - amd64
+  image: yobasystems/alpine-docker:amd64
   variables:
     DOCKER_DRIVER: overlay2
     CI_APPLICATION_REPOSITORY: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG
     CI_APPLICATION_TAG: $CI_COMMIT_SHA
+    CLAIRHOST: $CLAIR_HOST
   allow_failure: true
+  services:
+    - yobasystems/alpine-docker:amd64-dind
   script:
     - apk add -U wget ca-certificates
-    - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token "$DOCKER_REGISTRY" --password-stdin
     - docker pull ${CI_APPLICATION_REPOSITORY}:${CI_APPLICATION_TAG}
     - wget https://github.com/arminc/clair-scanner/releases/download/v8/clair-scanner_linux_amd64
     - mv clair-scanner_linux_amd64 clair-scanner
     - chmod +x clair-scanner
     - touch clair-whitelist.yml
-    - while( ! wget -q -O /dev/null $CLAIR_HOST/v1/namespaces ) ; do sleep 1 ; done
+    - while( ! wget -q -O /dev/null ${CLAIRHOST}/v1/namespaces ) ; do sleep 1 ; done
     - retries=0
     - echo "Waiting for clair daemon to start"
-    - while( ! wget -T 10 -q -O /dev/null $CLAIR_HOST/v1/namespaces ) ; do sleep 1 ; echo -n "." ; if [ $retries -eq 10 ] ; then echo " Timeout, aborting." ; exit 1 ; fi ; retries=$(($retries+1)) ; done
-    - ./clair-scanner -c $CLAIR_HOST --ip $(hostname -i) -r gl-container-scanning-report.json -l clair.log -w clair-whitelist.yml ${CI_APPLICATION_REPOSITORY}:${CI_APPLICATION_TAG} || true
+    - while( ! wget -T 10 -q -O /dev/null ${CLAIRHOST}/v1/namespaces ) ; do sleep 1 ; echo -n "." ; if [ $retries -eq 10 ] ; then echo " Timeout, aborting." ; exit 1 ; fi ; retries=$(($retries+1)) ; done
+    - ./clair-scanner -c ${CLAIRHOST} --ip $(hostname -i) -r gl-container-scanning-report.json -l clair.log -w clair-whitelist.yml ${CI_APPLICATION_REPOSITORY}:${CI_APPLICATION_TAG} || true
   artifacts:
-    paths: [gl-container-scanning-report.json]
+    reports:
+      container_scanning: gl-container-scanning-report.json
 
 Github Mirror:
   stage: deploy
