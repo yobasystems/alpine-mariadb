@@ -52,6 +52,7 @@ arm64v8 mariadb build:
     - echo "$QUAY_PASSWORD" | docker login -u "$QUAY_USERNAME" quay.io --password-stdin && docker push $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:aarch64
 
 container_scanning:
+  stage: deploy
   image: yobasystems/alpine-docker:amd64
   variables:
     DOCKER_DRIVER: overlay2
@@ -63,6 +64,7 @@ container_scanning:
     - yobasystems/alpine-docker:amd64-dind
   script:
     - apk add -U wget ca-certificates
+    - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token "$DOCKER_REGISTRY" --password-stdin
     - docker pull ${CI_APPLICATION_REPOSITORY}:${CI_APPLICATION_TAG}
     - wget https://github.com/arminc/clair-scanner/releases/download/v8/clair-scanner_linux_amd64
     - mv clair-scanner_linux_amd64 clair-scanner
