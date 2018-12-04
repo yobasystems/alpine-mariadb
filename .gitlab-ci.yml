@@ -60,7 +60,7 @@ container_scanning:
     DOCKER_DRIVER: overlay2
     CI_APPLICATION_REPOSITORY: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG
     CI_APPLICATION_TAG: $CI_COMMIT_SHA
-    CLAIRHOST: $CLAIR_HOST
+    CLAIRHOST: $CLAIRHOST
   allow_failure: true
   services:
     - yobasystems/alpine-docker:amd64-dind
