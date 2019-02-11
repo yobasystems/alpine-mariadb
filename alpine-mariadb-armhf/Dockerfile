@@ -1,6 +1,6 @@
-FROM yobasystems/alpine:3.8.1-armhf
+FROM yobasystems/alpine:3.9.0-armhf
 LABEL maintainer "Dominic Taylor <dominic@yobasystems.co.uk>" architecture="ARM32v7/armhf"
-LABEL mariadb-version="10.2.15" alpine-version="3.8.1" build="03-dec-2018" container-build="$CI_COMMIT_SHA"
+LABEL mariadb-version="10.3.12" alpine-version="3.9.0" build="11-Feb-2018"
 
 RUN apk add --no-cache mariadb mariadb-client pwgen && \
     rm -f /var/cache/apk/*
