@@ -1,8 +1,8 @@
 FROM yobasystems/alpine:3.9.0-armhf
 LABEL maintainer "Dominic Taylor <dominic@yobasystems.co.uk>" architecture="ARM32v7/armhf"
-LABEL mariadb-version="10.3.12" alpine-version="3.9.0" build="11-Feb-2018"
+LABEL mariadb-version="10.3.12" alpine-version="3.9.0" build="18-Feb-2018"
 
-RUN apk add --no-cache mariadb mariadb-client pwgen && \
+RUN apk add --no-cache mariadb mariadb-client mariadb-server-utils pwgen && \
     rm -f /var/cache/apk/*
 
 ADD files/run.sh /scripts/run.sh
