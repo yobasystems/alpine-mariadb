@@ -61,7 +61,7 @@ EOF
 	    fi
 	fi
 
-	/usr/bin/mysqld --user=mysql --bootstrap --verbose=0 --skip-name-resolve --skip-networking=0 --bind-address=0.0.0.0 < $tfile
+	/usr/bin/mysqld --user=mysql --bootstrap --verbose=0 --skip-name-resolve --skip-networking=0 < $tfile
 	rm -f $tfile
 
 	for f in /docker-entrypoint-initdb.d/*; do
@@ -77,7 +77,7 @@ EOF
 	echo 'MySQL init process done. Ready for start up.'
 	echo
 
-	echo "exec /usr/bin/mysqld --user=mysql --console --skip-name-resolve --skip-networking=0 --bind-address=0.0.0.0" "$@"
+	echo "exec /usr/bin/mysqld --user=mysql --console --skip-name-resolve --skip-networking=0" "$@"
 fi
 
 # execute any pre-exec scripts
@@ -89,4 +89,4 @@ do
 	fi
 done
 
-exec /usr/bin/mysqld --user=mysql --console --skip-name-resolve --skip-networking=0 --bind-address=0.0.0.0 $@
+exec /usr/bin/mysqld --user=mysql --console --skip-name-resolve --skip-networking=0 $@
