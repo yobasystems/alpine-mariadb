@@ -13,7 +13,8 @@ amd64 mariadb build:
     CI_APPLICATION_TAG_SHORT: $CI_COMMIT_SHORT_SHA
   script:
     - export COMMIT_TIME=$(git show -s --format=%ct $CI_APPLICATION_TAG)
-    - echo "$COMMIT_TIME"
+    - export $CI_APPLICATION_TAG_SHORT
+    - echo "$COMMIT_TIME" && echo "$CI_APPLICATION_TAG_SHORT"
     - apk add --update git
     - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token "$DOCKER_REGISTRY" --password-stdin
     - cd alpine-mariadb-amd64/ && docker build -t $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:master -t $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:latest -t $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:amd64 -t ${CI_APPLICATION_REPOSITORY}:${CI_APPLICATION_TAG} .
@@ -33,7 +34,8 @@ arm32v7 mariadb build:
     CI_APPLICATION_TAG_SHORT: $CI_COMMIT_SHORT_SHA
   script:
     - export COMMIT_TIME=$(git show -s --format=%ct $CI_APPLICATION_TAG)
-    - echo "$COMMIT_TIME"
+    - export $CI_APPLICATION_TAG_SHORT
+    - echo "$COMMIT_TIME" && echo "$CI_APPLICATION_TAG_SHORT"
     - apk add --update git
     - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token "$DOCKER_REGISTRY" --password-stdin
     - cd alpine-mariadb-armhf/ && docker build -t $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:arm32v7 -t $DOCKER_REGISTRY_DOCKERHUB_REPO:arm32v7 -t $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:arm32v7 -t $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:armhf -t $DOCKER_REGISTRY_DOCKERHUB_REPO:armhf -t $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:armhf .
@@ -55,7 +57,8 @@ arm64v8 mariadb build:
     CI_APPLICATION_TAG_SHORT: $CI_COMMIT_SHORT_SHA
   script:
     - export COMMIT_TIME=$(git show -s --format=%ct $CI_APPLICATION_TAG)
-    - echo "$COMMIT_TIME"
+    - export $CI_APPLICATION_TAG_SHORT
+    - echo "$COMMIT_TIME" && echo "$CI_APPLICATION_TAG_SHORT"
     - apk add --update git
     - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token "$DOCKER_REGISTRY" --password-stdin
     - cd alpine-mariadb-aarch64/ && docker build -t $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:arm64v8 -t $DOCKER_REGISTRY_DOCKERHUB_REPO:arm64v8 -t $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:arm64v8 -t $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:aarch64 -t $DOCKER_REGISTRY_DOCKERHUB_REPO:aarch64 -t $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:aarch64 .
