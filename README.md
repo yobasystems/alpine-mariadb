@@ -5,13 +5,13 @@
 [![Docker Stars](https://img.shields.io/docker/stars/yobasystems/alpine-mariadb.svg?style=for-the-badge&logo=docker)](https://hub.docker.com/r/yobasystems/alpine-mariadb/)
 
 [![Alpine Version](https://img.shields.io/badge/Alpine%20version-v3.9.0-green.svg?style=for-the-badge)](http://alpinelinux.org/)
-[![MariaDB Version](https://img.shields.io/badge/Mariadb%20version-v10.3.12-green.svg?style=for-the-badge)](https://mariadb.org/)
+[![MariaDB Version](https://img.shields.io/badge/Mariadb%20version-v10.3.13-green.svg?style=for-the-badge)](https://mariadb.org/)
 
 
-This Docker image [(yobasystems/alpine-mariadb)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) is based on the minimal [Alpine Linux](https://alpinelinux.org/) with [MariaDB v10.3.12](https://mariadb.org/) (MySQL Compatible) database server.
+This Docker image [(yobasystems/alpine-mariadb)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) is based on the minimal [Alpine Linux](https://alpinelinux.org/) with [MariaDB v10.3.13](https://mariadb.org/) (MySQL Compatible) database server.
 
 ##### Alpine Version 3.9.0 (Released January 29, 2019)
-##### MariaDB Version 10.3.12
+##### MariaDB Version 10.3.13
 
 ----
 
