@@ -135,6 +135,7 @@ quay.io manifest creation:
   stage: manifest
   tags:
     - amd64
+  allow_failure: true
   script:
     - mkdir /root/.docker
     - 'echo -e "{\n    \"experimental\": \"enabled\"\n}\n" >> ~/.docker/config.json'
