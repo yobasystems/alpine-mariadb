@@ -1,6 +1,6 @@
 FROM yobasystems/alpine:3.9.0-amd64
 LABEL maintainer "Dominic Taylor <dominic@yobasystems.co.uk>" architecture="AMD64/x86_64"
-LABEL mariadb-version="10.3.13" alpine-version="3.9.0" build="28-Feb-2019"
+LABEL mariadb-version="10.3.13" alpine-version="3.9.0" build="04-Mar-2019"
 
 ARG COMMIT_TIME
 ARG CI_APPLICATION_TAG_SHORT

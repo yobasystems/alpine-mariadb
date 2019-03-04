@@ -1,6 +1,6 @@
 FROM yobasystems/alpine:3.9.0-armhf
 LABEL maintainer "Dominic Taylor <dominic@yobasystems.co.uk>" architecture="ARM32v7/armhf"
-LABEL mariadb-version="10.3.13" alpine-version="3.9.0" build="28-Feb-2019"
+LABEL mariadb-version="10.3.13" alpine-version="3.9.0" build="04-Mar-2019"
 
 ARG COMMIT_TIME
 ARG CI_APPLICATION_TAG_SHORT
