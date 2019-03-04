@@ -1,9 +1,9 @@
+ARG COMMIT_TIME
+ARG CI_APPLICATION_TAG_SHORT
+
 FROM yobasystems/alpine:3.9.0-amd64
 LABEL maintainer "Dominic Taylor <dominic@yobasystems.co.uk>" architecture="AMD64/x86_64"
 LABEL mariadb-version="10.3.13" alpine-version="3.9.0" build="04-Mar-2019"
-
-ARG COMMIT_TIME
-ARG CI_APPLICATION_TAG_SHORT
 LABEL org.label-schema.build-date="$COMMIT_TIME" \
       org.label-schema.name="alpine-mariadb" \
       org.label-schema.description="MariaDB Docker image running on Alpine Linux" \
