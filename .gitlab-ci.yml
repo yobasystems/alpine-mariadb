@@ -1,9 +1,11 @@
 stages:
   - build
+  - test
+  - manifest
   - deploy
 
 amd64 mariadb build:
-  stage: yobasystems/alpine-docker:dind
+  image: yobasystems/alpine-docker:amd64-dind
   stage: build
   tags:
     - amd64
@@ -15,14 +17,17 @@ amd64 mariadb build:
     - echo "$COMMIT_TIME" && echo "$CI_COMMIT_SHORT_SHA"
     - apk add --update git
     - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token "$DOCKER_REGISTRY" --password-stdin
-    - cd alpine-mariadb-amd64/ && docker build --build-arg VCS_REF=$CI_COMMIT_SHORT_SHA --build-arg BUILD_DATE=$COMMIT_TIME -t $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:master -t $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:latest -t $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:amd64 -t ${CI_APPLICATION_REPOSITORY}:${CI_APPLICATION_TAG} .
-    - docker push $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:master
-    - docker push $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:latest
+    - cd alpine-mariadb-amd64/ && docker build --build-arg VCS_REF=${CI_COMMIT_SHORT_SHA} --build-arg BUILD_DATE=${COMMIT_TIME} -t $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:amd64 -t $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:x86_64 -t $DOCKER_REGISTRY_DOCKERHUB_REPO:amd64 -t $DOCKER_REGISTRY_DOCKERHUB_REPO:x86_64 -t $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:amd64 -t $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:x86_64 -t ${CI_APPLICATION_REPOSITORY}:${CI_APPLICATION_TAG} .
     - docker push $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:amd64
+    - docker push $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:x86_64
+    - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin && docker push $DOCKER_REGISTRY_DOCKERHUB_REPO:amd64
+    - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin && docker push $DOCKER_REGISTRY_DOCKERHUB_REPO:x86_64
+    - echo "$QUAY_PASSWORD" | docker login -u "$QUAY_USERNAME" quay.io --password-stdin && docker push $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:amd64
+    - echo "$QUAY_PASSWORD" | docker login -u "$QUAY_USERNAME" quay.io --password-stdin && docker push $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:x86_64
     - docker push ${CI_APPLICATION_REPOSITORY}:${CI_APPLICATION_TAG}
 
 arm32v7 mariadb build:
-  stage: yobasystems/alpine-docker:armhf-dind
+  image: yobasystems/alpine-docker:armhf-dind
   stage: build
   tags:
     - armhf
@@ -34,7 +39,7 @@ arm32v7 mariadb build:
     - echo "$COMMIT_TIME" && echo "$CI_COMMIT_SHORT_SHA"
     - apk add --update git
     - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token "$DOCKER_REGISTRY" --password-stdin
-    - cd alpine-mariadb-armhf/ && docker build --build-arg VCS_REF=$CI_COMMIT_SHORT_SHA --build-arg BUILD_DATE=$COMMIT_TIME -t $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:arm32v7 -t $DOCKER_REGISTRY_DOCKERHUB_REPO:arm32v7 -t $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:arm32v7 -t $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:armhf -t $DOCKER_REGISTRY_DOCKERHUB_REPO:armhf -t $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:armhf .
+    - cd alpine-mariadb-armhf/ && docker build --build-arg VCS_REF=${CI_COMMIT_SHORT_SHA} --build-arg BUILD_DATE=${COMMIT_TIME} -t $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:arm32v7 -t $DOCKER_REGISTRY_DOCKERHUB_REPO:arm32v7 -t $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:arm32v7 -t $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:armhf -t $DOCKER_REGISTRY_DOCKERHUB_REPO:armhf -t $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:armhf .
     - docker push $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:arm32v7
     - docker push $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:armhf
     - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin && docker push $DOCKER_REGISTRY_DOCKERHUB_REPO:arm32v7
@@ -43,7 +48,7 @@ arm32v7 mariadb build:
     - echo "$QUAY_PASSWORD" | docker login -u "$QUAY_USERNAME" quay.io --password-stdin && docker push $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:armhf
 
 arm64v8 mariadb build:
-  stage: yobasystems/alpine-docker:aarch64-dind
+  image: yobasystems/alpine-docker:aarch64-dind
   stage: build
   tags:
     - aarch64
@@ -55,7 +60,7 @@ arm64v8 mariadb build:
     - echo "$COMMIT_TIME" && echo "$CI_COMMIT_SHORT_SHA"
     - apk add --update git
     - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token "$DOCKER_REGISTRY" --password-stdin
-    - cd alpine-mariadb-aarch64/ && docker build --build-arg VCS_REF=$CI_COMMIT_SHORT_SHA --build-arg BUILD_DATE=$COMMIT_TIME -t $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:arm64v8 -t $DOCKER_REGISTRY_DOCKERHUB_REPO:arm64v8 -t $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:arm64v8 -t $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:aarch64 -t $DOCKER_REGISTRY_DOCKERHUB_REPO:aarch64 -t $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:aarch64 .
+    - cd alpine-mariadb-aarch64/ && docker build --build-arg VCS_REF=${CI_COMMIT_SHORT_SHA} --build-arg BUILD_DATE=${COMMIT_TIME} -t $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:arm64v8 -t $DOCKER_REGISTRY_DOCKERHUB_REPO:arm64v8 -t $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:arm64v8 -t $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:aarch64 -t $DOCKER_REGISTRY_DOCKERHUB_REPO:aarch64 -t $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:aarch64 .
     - docker push $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:arm64v8
     - docker push $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:aarch64
     - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin && docker push $DOCKER_REGISTRY_DOCKERHUB_REPO:arm64v8
@@ -64,7 +69,7 @@ arm64v8 mariadb build:
     - echo "$QUAY_PASSWORD" | docker login -u "$QUAY_USERNAME" quay.io --password-stdin && docker push $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:aarch64
 
 container_scanning:
-  stage: deploy
+  stage: test
   image: yobasystems/alpine-docker:amd64
   tags:
     - security
@@ -88,6 +93,54 @@ container_scanning:
   artifacts:
     reports:
       container_scanning: gl-container-scanning-report.json
+
+gitlab manifest creation:
+  stage: yobasystems/alpine-docker:amd64-dind
+  stage: manifest
+  tags:
+    - amd64
+  script:
+    - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token "$DOCKER_REGISTRY" --password-stdin
+    - docker pull $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:amd64
+    - docker pull $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:arm32v7
+    - docker pull $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:arm64v8
+    - docker manifest create $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:latest $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:amd64 $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:arm32v7 $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:arm64v8
+    - docker manifest annotate $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:latest $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:amd64 --os linux --os.version 3.9.0 --arch amd64
+    - docker manifest annotate $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:latest $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:arm32v7 --os linux --os.version 3.9.0 --arch arm --variant armv7
+    - docker manifest annotate $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:latest $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:arm64v8 --os linux --os.version 3.9.0 --arch arm64 --variant armv8
+    - docker manifest push $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:latest
+
+dockerhub manifest creation:
+  stage: yobasystems/alpine-docker:amd64-dind
+  stage: manifest
+  tags:
+    - amd64
+  script:
+    - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+    - docker pull $DOCKER_REGISTRY_DOCKERHUB_REPO:amd64
+    - docker pull $DOCKER_REGISTRY_DOCKERHUB_REPO:arm32v7
+    - docker pull $DOCKER_REGISTRY_DOCKERHUB_REPO:arm64v8
+    - docker manifest create $DOCKER_REGISTRY_DOCKERHUB_REPO:latest $DOCKER_REGISTRY_DOCKERHUB_REPO:amd64 $DOCKER_REGISTRY_DOCKERHUB_REPO:arm32v7 $DOCKER_REGISTRY_DOCKERHUB_REPO:arm64v8
+    - docker manifest annotate $DOCKER_REGISTRY_DOCKERHUB_REPO:latest $DOCKER_REGISTRY_DOCKERHUB_REPO:amd64 --os linux --os.version 3.9.0 --arch amd64
+    - docker manifest annotate $DOCKER_REGISTRY_DOCKERHUB_REPO:latest $DOCKER_REGISTRY_DOCKERHUB_REPO:arm32v7 --os linux --os.version 3.9.0 --arch arm --variant armv7
+    - docker manifest annotate $DOCKER_REGISTRY_DOCKERHUB_REPO:latest $DOCKER_REGISTRY_DOCKERHUB_REPO:arm64v8 --os linux --os.version 3.9.0 --arch arm64 --variant armv8
+    - docker manifest push $DOCKER_REGISTRY_DOCKERHUB_REPO:latest
+
+quay.io manifest creation:
+  stage: yobasystems/alpine-docker:amd64-dind
+  stage: manifest
+  tags:
+    - amd64
+  script:
+    - echo "$QUAY_PASSWORD" | docker login -u "$QUAY_USERNAME" quay.io --password-stdin
+    - docker pull $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:amd64
+    - docker pull $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:arm32v7
+    - docker pull $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:arm64v8
+    - docker manifest create $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:latest $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:amd64 $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:arm32v7 $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:arm64v8
+    - docker manifest annotate $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:latest $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:amd64 --os linux --os.version 3.9.0 --arch amd64
+    - docker manifest annotate $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:latest $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:arm32v7 --os linux --os.version 3.9.0 --arch arm --variant armv7
+    - docker manifest annotate $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:latest $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:arm64v8 --os linux --os.version 3.9.0 --arch arm64 --variant armv8
+    - docker manifest push $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:latest
 
 Github Mirror:
   stage: deploy
