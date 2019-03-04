@@ -100,14 +100,15 @@ gitlab manifest creation:
   tags:
     - amd64
   script:
+    - echo -e '{\n    "experimental": "enabled"\n}\n' >> ~/.docker/config.json
     - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token "$DOCKER_REGISTRY" --password-stdin
     - docker pull $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:amd64
     - docker pull $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:arm32v7
     - docker pull $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:arm64v8
     - docker manifest create $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:latest $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:amd64 $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:arm32v7 $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:arm64v8
     - docker manifest annotate $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:latest $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:amd64 --os linux --os.version 3.9.0 --arch amd64
-    - docker manifest annotate $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:latest $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:arm32v7 --os linux --os.version 3.9.0 --arch arm --variant armv7
-    - docker manifest annotate $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:latest $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:arm64v8 --os linux --os.version 3.9.0 --arch arm64 --variant armv8
+    - docker manifest annotate $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:latest $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:arm32v7 --os linux --os.version 3.9.0 --arch arm --variant v7
+    - docker manifest annotate $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:latest $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:arm64v8 --os linux --os.version 3.9.0 --arch arm64 --variant v8
     - docker manifest push $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:latest
 
 dockerhub manifest creation:
@@ -116,14 +117,15 @@ dockerhub manifest creation:
   tags:
     - amd64
   script:
+    - echo -e '{\n    "experimental": "enabled"\n}\n' >> ~/.docker/config.json
     - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
     - docker pull $DOCKER_REGISTRY_DOCKERHUB_REPO:amd64
     - docker pull $DOCKER_REGISTRY_DOCKERHUB_REPO:arm32v7
     - docker pull $DOCKER_REGISTRY_DOCKERHUB_REPO:arm64v8
     - docker manifest create $DOCKER_REGISTRY_DOCKERHUB_REPO:latest $DOCKER_REGISTRY_DOCKERHUB_REPO:amd64 $DOCKER_REGISTRY_DOCKERHUB_REPO:arm32v7 $DOCKER_REGISTRY_DOCKERHUB_REPO:arm64v8
     - docker manifest annotate $DOCKER_REGISTRY_DOCKERHUB_REPO:latest $DOCKER_REGISTRY_DOCKERHUB_REPO:amd64 --os linux --os.version 3.9.0 --arch amd64
-    - docker manifest annotate $DOCKER_REGISTRY_DOCKERHUB_REPO:latest $DOCKER_REGISTRY_DOCKERHUB_REPO:arm32v7 --os linux --os.version 3.9.0 --arch arm --variant armv7
-    - docker manifest annotate $DOCKER_REGISTRY_DOCKERHUB_REPO:latest $DOCKER_REGISTRY_DOCKERHUB_REPO:arm64v8 --os linux --os.version 3.9.0 --arch arm64 --variant armv8
+    - docker manifest annotate $DOCKER_REGISTRY_DOCKERHUB_REPO:latest $DOCKER_REGISTRY_DOCKERHUB_REPO:arm32v7 --os linux --os.version 3.9.0 --arch arm --variant v7
+    - docker manifest annotate $DOCKER_REGISTRY_DOCKERHUB_REPO:latest $DOCKER_REGISTRY_DOCKERHUB_REPO:arm64v8 --os linux --os.version 3.9.0 --arch arm64 --variant v8
     - docker manifest push $DOCKER_REGISTRY_DOCKERHUB_REPO:latest
 
 quay.io manifest creation:
@@ -132,14 +134,15 @@ quay.io manifest creation:
   tags:
     - amd64
   script:
+    - echo -e '{\n    "experimental": "enabled"\n}\n' >> ~/.docker/config.json 
     - echo "$QUAY_PASSWORD" | docker login -u "$QUAY_USERNAME" quay.io --password-stdin
     - docker pull $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:amd64
     - docker pull $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:arm32v7
     - docker pull $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:arm64v8
     - docker manifest create $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:latest $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:amd64 $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:arm32v7 $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:arm64v8
     - docker manifest annotate $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:latest $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:amd64 --os linux --os.version 3.9.0 --arch amd64
-    - docker manifest annotate $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:latest $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:arm32v7 --os linux --os.version 3.9.0 --arch arm --variant armv7
-    - docker manifest annotate $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:latest $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:arm64v8 --os linux --os.version 3.9.0 --arch arm64 --variant armv8
+    - docker manifest annotate $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:latest $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:arm32v7 --os linux --os.version 3.9.0 --arch arm --variant v7
+    - docker manifest annotate $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:latest $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:arm64v8 --os linux --os.version 3.9.0 --arch arm64 --variant v8
     - docker manifest push $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:latest
 
 Github Mirror:
