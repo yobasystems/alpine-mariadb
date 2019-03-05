@@ -3,19 +3,20 @@ FROM yobasystems/alpine:3.9.0-amd64
 ARG BUILD_DATE
 ARG VCS_REF
 
-LABEL maintainer "Dominic Taylor <dominic@yobasystems.co.uk>" \
-      architecture="amd64/x86_64" \
-      mariadb-version="10.3.13" \
-      alpine-version="3.9.0" \
-      build="04-Mar-2019" \
-      org.label-schema.build-date=$BUILD_DATE \
-      org.label-schema.name="alpine-mariadb" \
-      org.label-schema.description="MariaDB Docker image running on Alpine Linux" \
-      org.label-schema.vcs-ref=$VCS_REF \
-      org.label-schema.vcs-url="https://github.com/yobasystems/alpine-mariadb" \
-      org.label-schema.vendor="Yoba Systems" \
-      org.label-schema.version="10.3.13" \
-      org.label-schema.schema-version="1.0"
+LABEL maintainer="Dominic Taylor <dominic@yobasystems.co.uk>" \
+    architecture="amd64/x86_64" \
+    mariadb-version="10.3.13" \
+    alpine-version="3.9.0" \
+    build="05-Mar-2019" \
+    org.opencontainers.image.title="alpine-mariadb" \
+    org.opencontainers.image.description="MariaDB Docker image running on Alpine Linux" \
+    org.opencontainers.image.authors="Dominic Taylor <dominic@yobasystems.co.uk>" \
+    org.opencontainers.image.vendor="Yoba Systems" \
+    org.opencontainers.image.version="v10.3.13" \
+    org.opencontainers.image.url="https://hub.docker.com/r/yobasystems/alpine-mariadb/" \
+    org.opencontainers.image.source="https://github.com/yobasystems/alpine-mariadb" \
+    org.opencontainers.image.revision=$VCS_REF \
+    org.opencontainers.image.created=$BUILD_DATE
 
 RUN apk add --no-cache mariadb mariadb-client mariadb-server-utils pwgen && \
     rm -f /var/cache/apk/*
