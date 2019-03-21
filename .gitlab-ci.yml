@@ -5,7 +5,7 @@ stages:
   - deploy
 
 amd64 mariadb build:
-  image: yobasystems/alpine-docker:amd64-dind
+  image: yobasystems/alpine-docker:dind
   stage: build
   tags:
     - amd64
@@ -27,7 +27,7 @@ amd64 mariadb build:
     - docker push ${CI_APPLICATION_REPOSITORY}:${CI_APPLICATION_TAG}
 
 arm32v7 mariadb build:
-  image: yobasystems/alpine-docker:armhf-dind
+  image: yobasystems/alpine-docker:dind
   stage: build
   tags:
     - armhf
@@ -48,7 +48,7 @@ arm32v7 mariadb build:
     - echo "$QUAY_PASSWORD" | docker login -u "$QUAY_USERNAME" quay.io --password-stdin && docker push $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:armhf
 
 arm64v8 mariadb build:
-  image: yobasystems/alpine-docker:aarch64-dind
+  image: yobasystems/alpine-docker:dind
   stage: build
   tags:
     - aarch64
@@ -80,7 +80,7 @@ container_scanning:
     CLAIR_HOST: $CLAIR_URL
   allow_failure: true
   services:
-    - yobasystems/alpine-docker:amd64-dind
+    - yobasystems/alpine-docker:dind
   script:
     - apk add -U wget ca-certificates
     - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token "$DOCKER_REGISTRY" --password-stdin
@@ -95,7 +95,7 @@ container_scanning:
       container_scanning: gl-container-scanning-report.json
 
 gitlab manifest creation:
-  stage: yobasystems/alpine-docker:amd64-dind
+  image: yobasystems/alpine-docker:dind
   stage: manifest
   tags:
     - amd64
@@ -113,7 +113,7 @@ gitlab manifest creation:
     - docker manifest push $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:latest
 
 dockerhub manifest creation:
-  stage: yobasystems/alpine-docker:amd64-dind
+  image: yobasystems/alpine-docker:dind
   stage: manifest
   tags:
     - amd64
