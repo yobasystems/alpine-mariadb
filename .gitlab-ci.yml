@@ -4,6 +4,9 @@ stages:
   - manifest
   - deploy
 
+include:
+  - remote: 'https://gitlab.com/yobasystems/gitlab-ci-templates/raw/master/container_scanning_all_arch.yml'
+
 amd64 mariadb build:
   image: yobasystems/alpine-docker:dind
   stage: build
@@ -68,32 +71,6 @@ arm64v8 mariadb build:
     - echo "$QUAY_PASSWORD" | docker login -u "$QUAY_USERNAME" quay.io --password-stdin && docker push $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:arm64v8
     - echo "$QUAY_PASSWORD" | docker login -u "$QUAY_USERNAME" quay.io --password-stdin && docker push $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:aarch64
 
-container_scanning:
-  stage: test
-  image: yobasystems/alpine-docker:amd64
-  tags:
-    - security
-  variables:
-    DOCKER_DRIVER: overlay2
-    CI_APPLICATION_REPOSITORY: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG
-    CI_APPLICATION_TAG: $CI_COMMIT_SHA
-    CLAIR_HOST: $CLAIR_URL
-  allow_failure: true
-  services:
-    - yobasystems/alpine-docker:dind
-  script:
-    - apk add -U wget ca-certificates
-    - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token "$DOCKER_REGISTRY" --password-stdin
-    - docker pull ${CI_APPLICATION_REPOSITORY}:${CI_APPLICATION_TAG}
-    - wget https://github.com/arminc/clair-scanner/releases/download/v8/clair-scanner_linux_amd64
-    - mv clair-scanner_linux_amd64 clair-scanner
-    - chmod +x clair-scanner
-    - touch clair-whitelist.yml
-    - ./clair-scanner -c ${CLAIR_HOST} --ip $(hostname -i) -r gl-container-scanning-report.json -l clair.log -w clair-whitelist.yml ${CI_APPLICATION_REPOSITORY}:${CI_APPLICATION_TAG} || true
-  artifacts:
-    reports:
-      container_scanning: gl-container-scanning-report.json
-
 gitlab manifest creation:
   image: yobasystems/alpine-docker:dind
   stage: manifest
@@ -129,23 +106,3 @@ dockerhub manifest creation:
     - docker manifest annotate $DOCKER_REGISTRY_DOCKERHUB_REPO:latest $DOCKER_REGISTRY_DOCKERHUB_REPO:arm32v7 --os linux --arch arm
     - docker manifest annotate $DOCKER_REGISTRY_DOCKERHUB_REPO:latest $DOCKER_REGISTRY_DOCKERHUB_REPO:arm64v8 --os linux --arch arm64
     - docker manifest push $DOCKER_REGISTRY_DOCKERHUB_REPO:latest
-
-Github Mirror:
-  stage: deploy
-  tags:
-    - deploy
-  script:
-    - git push --mirror https://$GITHUB_USERNAME:$GITHUB_PASSWORD@$GITHUB_REPO
-    - git push https://$GITHUB_USERNAME:$GITHUB_PASSWORD@$GITHUB_REPO HEAD:master
-
-Bitbucket Mirror:
-  stage: deploy
-  tags:
-    - deploy
-  script:
-    - mkdir -p ~/.ssh
-    - echo "$BB_SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
-    - chmod 600 ~/.ssh/id_rsa
-    - ssh-keyscan -H 'bitbucket.org' >> ~/.ssh/known_hosts
-    - git push --mirror git@$BITBUCKET_REPO
-    - git push git@$BITBUCKET_REPO HEAD:master
