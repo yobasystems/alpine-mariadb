@@ -84,6 +84,7 @@ MariaDB is developed as open source software and as a relational database it pro
 
 When setting charset, also make sure to choose a collation otherwise it will be the default.
 
+```
 +----------+-----------------------------+---------------------+--------+
 | Charset  | Description                 | Default collation   | Maxlen |
 +----------+-----------------------------+---------------------+--------+
@@ -128,7 +129,7 @@ When setting charset, also make sure to choose a collation otherwise it will be 
 | cp932    | SJIS for Windows Japanese   | cp932_japanese_ci   |      2 |
 | eucjpms  | UJIS for Windows Japanese   | eucjpms_japanese_ci |      3 |
 +----------+-----------------------------+---------------------+--------+
-
+```
 
 > https://mariadb.org/
 
