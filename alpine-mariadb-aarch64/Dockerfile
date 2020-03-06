@@ -5,7 +5,7 @@ ARG VCS_REF
 
 LABEL maintainer="Dominic Taylor <dominic@yobasystems.co.uk>" \
     architecture="arm64v8/aarch64" \
-    mariadb-version="10.4.10" \
+    mariadb-version="10.4.12" \
     alpine-version="3.11.2" \
     build="16-Jan-2020" \
     org.opencontainers.image.title="alpine-mariadb" \
