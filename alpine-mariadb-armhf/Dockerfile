@@ -1,18 +1,18 @@
-FROM yobasystems/alpine:3.11.3-armhf
+FROM yobasystems/alpine:3.11.6-armhf
 
 ARG BUILD_DATE
 ARG VCS_REF
 
 LABEL maintainer="Dominic Taylor <dominic@yobasystems.co.uk>" \
     architecture="arm32v7/armhf" \
-    mariadb-version="10.4.12" \
-    alpine-version="3.11.3" \
+    mariadb-version="10.4.13" \
+    alpine-version="3.11.6" \
     build="09-Mar-2020" \
     org.opencontainers.image.title="alpine-mariadb" \
     org.opencontainers.image.description="MariaDB Docker image running on Alpine Linux" \
     org.opencontainers.image.authors="Dominic Taylor <dominic@yobasystems.co.uk>" \
     org.opencontainers.image.vendor="Yoba Systems" \
-    org.opencontainers.image.version="v10.4.12" \
+    org.opencontainers.image.version="v10.4.13" \
     org.opencontainers.image.url="https://hub.docker.com/r/yobasystems/alpine-mariadb/" \
     org.opencontainers.image.source="https://github.com/yobasystems/alpine-mariadb" \
     org.opencontainers.image.revision=$VCS_REF \
