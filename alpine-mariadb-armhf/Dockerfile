@@ -1,4 +1,4 @@
-FROM yobasystems/alpine:3.11.6-armhf
+FROM yobasystems/alpine:3.12.0-armhf
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -6,8 +6,8 @@ ARG VCS_REF
 LABEL maintainer="Dominic Taylor <dominic@yobasystems.co.uk>" \
     architecture="arm32v7/armhf" \
     mariadb-version="10.4.13" \
-    alpine-version="3.11.6" \
-    build="26-May-2020" \
+    alpine-version="3.12.0" \
+    build="16-Jul-2020" \
     org.opencontainers.image.title="alpine-mariadb" \
     org.opencontainers.image.description="MariaDB Docker image running on Alpine Linux" \
     org.opencontainers.image.authors="Dominic Taylor <dominic@yobasystems.co.uk>" \
