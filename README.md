@@ -47,7 +47,7 @@ MariaDB is developed as open source software and as a relational database it pro
 * ```:amd64```, ```:x86_64```  amd64 based on latest tag but amd64 architecture
 * ```:aarch64```, ```:arm64v8``` Armv8 based on latest tag but arm64 architecture
 * ```:armhf```, ```:arm32v7``` Armv7 based on latest tag but arm32 architecture
-* ```:version``` Version tags e.g ```:10``, ```:10.5```, ```10.5.9```
+* ```:version``` Version tags e.g ```:10```, ```:10.5```, ```10.5.9```
 
 ## Layers & Sizes
 
