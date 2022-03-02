@@ -73,8 +73,8 @@ EOF
 
 	for f in /docker-entrypoint-initdb.d/*; do
 		case "$f" in
-			*.sql)    echo "$0: running $f"; /usr/bin/mysqld --user=mysql --bootstrap --verbose=0 --skip-name-resolve --skip-networking=0 < "$f"; echo ;;
-			*.sql.gz) echo "$0: running $f"; gunzip -c "$f" | /usr/bin/mysqld --user=mysql --bootstrap --verbose=0 --skip-name-resolve --skip-networking=0 < "$f"; echo ;;
+			*.sql)    echo "$0: running $f" { echo "use \`$MYSQL_DATABASE\`;" ; cat "$f" ; } /usr/bin/mysqld --user=root --bootstrap --verbose=0 --skip-name-resolve --skip-networking=0 echo ;;
+            *.sql.gz) echo "$0: running $f" { echo "use \`$MYSQL_DATABASE\`;" ; gunzip -c "$f" ; } /usr/bin/mysqld --user=root --bootstrap --verbose=0 --skip-name-resolve --skip-networking=0 echo ;;
 			*)        echo "$0: ignoring or entrypoint initdb empty $f" ;;
 		esac
 		echo
