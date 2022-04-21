@@ -4,14 +4,14 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/yobasystems/alpine-mariadb.svg?style=for-the-badge&logo=docker)](https://hub.docker.com/r/yobasystems/alpine-mariadb/)
 [![Docker Stars](https://img.shields.io/docker/stars/yobasystems/alpine-mariadb.svg?style=for-the-badge&logo=docker)](https://hub.docker.com/r/yobasystems/alpine-mariadb/)
 
-[![Alpine Version](https://img.shields.io/badge/Alpine%20version-v3.15.0-green.svg?style=for-the-badge&logo=alpine-linux)](https://alpinelinux.org/)
-[![MariaDB Version](https://img.shields.io/badge/Mariadb%20version-v10.6.4-green.svg?style=for-the-badge&logo=mariadb)](https://mariadb.org/)
+[![Alpine Version](https://img.shields.io/badge/Alpine%20version-v3.15.4-green.svg?style=for-the-badge&logo=alpine-linux)](https://alpinelinux.org/)
+[![MariaDB Version](https://img.shields.io/badge/Mariadb%20version-v10.6.7-green.svg?style=for-the-badge&logo=mariadb)](https://mariadb.org/)
 
 
-This Docker image [(yobasystems/alpine-mariadb)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) is based on the minimal [Alpine Linux](https://alpinelinux.org/) with [MariaDB v10.6.4](https://mariadb.org/) (MySQL Compatible) database server.
+This Docker image [(yobasystems/alpine-mariadb)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) is based on the minimal [Alpine Linux](https://alpinelinux.org/) with [MariaDB v10.6.7](https://mariadb.org/) (MySQL Compatible) database server.
 
-### Alpine Version 3.15.0 (Released Nov 24, 2021)
-##### MariaDB Version 10.6.4
+### Alpine Version 3.15.4 (Released 2022-04-04)
+##### MariaDB Version 10.6.7
 
 ----
 
@@ -47,7 +47,7 @@ MariaDB is developed as open source software and as a relational database it pro
 * ```:amd64```, ```:x86_64```  amd64 based on latest tag but amd64 architecture
 * ```:aarch64```, ```:arm64v8``` Armv8 based on latest tag but arm64 architecture
 * ```:armhf```, ```:arm32v7``` Armv7 based on latest tag but arm32 architecture
-* ```:version``` Version tags e.g ```:10```, ```:10.6```, ```10.6.4```
+* ```:version``` Version tags e.g ```:10```, ```:10.6```, ```10.6.7```
 
 ## Layers & Sizes
 
