@@ -13,6 +13,7 @@ stages:
 include:
 - remote: https://gitlab.com/yobasystems/gitlab-ci-templates/raw/master/container_scanning_all_arch.yml
 - template: Security/Secret-Detection.gitlab-ci.yml
+- template: Security/SAST.gitlab-ci.yml
 amd64 mariadb build:
   image: yobasystems/alpine-docker:dind
   stage: build
@@ -351,3 +352,5 @@ dockerhub major version 10 manifest creation:
   - docker manifest annotate $DOCKER_REGISTRY_DOCKERHUB_REPO:10 $DOCKER_REGISTRY_DOCKERHUB_REPO:10.6.7-arm64v8
     --os linux --arch arm64
   - docker manifest push $DOCKER_REGISTRY_DOCKERHUB_REPO:10
+sast:
+  stage: test
