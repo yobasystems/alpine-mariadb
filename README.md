@@ -15,7 +15,23 @@ This Docker image [(yobasystems/alpine-mariadb)](https://hub.docker.com/r/yobasy
 
 ----
 
-## What is Alpine Linux?
+
+## Table of Contents
+
+- [What is Alpine Linux?](#what-is-alpine-linux)
+- [Features](#features)
+- [Architectures](#architectures)
+- [Tags](#tags)
+- [Layers & Sizes](#layers--sizes)
+- [How to use this image](#how-to-use-this-image)
+- [Image contents & Vulnerability analysis](#image-contents--vulnerability-analysis)
+- [Source Repositories](#source-repositories)
+- [Container Registries](#container-registries)
+- [Links](#links)
+- [Donation](#donation)
+
+
+## 🏔️ What is Alpine Linux?
 Alpine Linux is a Linux distribution built around musl libc and BusyBox. The image is only 5 MB in size and has access to a package repository that is much more complete than other BusyBox based images. This makes Alpine Linux a great image base for utilities and even production applications. Read more about Alpine Linux here and you can see how their mantra fits in right at home with Docker images.
 
 ## What is MariaDB?
@@ -25,22 +41,22 @@ MariaDB turns data into structured information in a wide array of applications, 
 
 MariaDB is developed as open source software and as a relational database it provides an SQL interface for accessing data. The latest versions of MariaDB also include GIS and JSON features.
 
-## Features
+## ✨ Features
 
 * Minimal size only, minimal layers
 * Memory usage is minimal on a simple install.
 * MariaDB the MySQL replacement
 
 
-## Architectures
+## 🏗️ Architectures
 
 * ```:amd64```, ```:x86_64``` - 64 bit Intel/AMD (x86_64/amd64)
 * ```:arm64v8```, ```:aarch64``` - 64 bit ARM (ARMv8/aarch64)
 * ```:arm32v7```, ```:armhf``` - 32 bit ARM (ARMv7/armhf)
 
-##### PLEASE CHECK TAGS BELOW FOR SUPPORTED ARCHITECTURES, THE ABOVE IS A LIST OF EXPLANATION
+#### 📝 PLEASE CHECK TAGS BELOW FOR SUPPORTED ARCHITECTURES, THE ABOVE IS A LIST OF EXPLANATION
 
-## Tags
+## 🏷️ Tags
 
 * ```:latest``` latest branch based (Automatic Architecture Selection)
 * ```:master``` master branch usually inline with latest
@@ -49,7 +65,7 @@ MariaDB is developed as open source software and as a relational database it pro
 * ```:armhf```, ```:arm32v7``` Armv7 based on latest tag but arm32 architecture
 * ```:version``` Version tags e.g ```:10```, ```:10.6```, ```10.6.12```
 
-## Layers & Sizes
+## 📏 Layers & Sizes
 
 ![Version](https://img.shields.io/badge/version-amd64-blue.svg?style=for-the-badge)
 ![MicroBadger Layers (tag)](https://img.shields.io/microbadger/layers/yobasystems/alpine-mariadb/amd64.svg?style=for-the-badge)
@@ -64,6 +80,7 @@ MariaDB is developed as open source software and as a relational database it pro
 ![MicroBadger Size (tag)](https://img.shields.io/microbadger/image-size/yobasystems/alpine-mariadb/armhf.svg?style=for-the-badge)
 
 
+## 🚀 How to use this image
 ## Volume structure
 
 * `/var/lib/mysql`: Database files
@@ -185,7 +202,13 @@ mysql:
   restart: always
 ```
 
-## Source Repositories
+## 🔍 Image contents & Vulnerability analysis
+
+| PACKAGE NAME          | PACKAGE VERSION | VULNERABILITIES |
+|-----------------------|-----------------|-----------------|
+
+
+## 📚 Source Repositories
 
 * [Github - yobasystems/alpine-mariadb](https://github.com/yobasystems/alpine-mariadb)
 
@@ -194,14 +217,14 @@ mysql:
 * [Bitbucket - yobasystems/alpine-mariadb](https://bitbucket.org/yobasystems/alpine-mariadb/)
 
 
-## Container Registries
+## 🐳 Container Registries
 
 * [Dockerhub - yobasystems/alpine-mariadb](https://hub.docker.com/r/yobasystems/alpine-mariadb/)
 
 * [Quay.io - yobasystems/alpine-mariadb](https://quay.io/repository/yobasystems/alpine-mariadb)
 
 
-## Links
+## 🔗 Links
 
 * [Yoba Systems](https://www.yobasystems.co.uk/)
 
@@ -213,7 +236,7 @@ mysql:
 
 * [Maintainer - Dominic Taylor](https://github.com/dominictayloruk)
 
-## Donation
+## 💰 Donation
 
 [![BMAC](https://img.shields.io/badge/BUY%20ME%20A%20COFFEE-£5-blue.svg?style=for-the-badge&logo=buy-me-a-coffee)](https://www.buymeacoffee.com/dominictayloruk?new=1)
 
