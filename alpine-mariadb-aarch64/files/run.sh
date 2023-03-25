@@ -62,23 +62,53 @@ EOF
 			echo "CREATE DATABASE IF NOT EXISTS \`$MYSQL_DATABASE\` CHARACTER SET utf8 COLLATE utf8_general_ci;" >> $tfile
 		fi
 
-	 if [ "$MYSQL_USER" != "" ]; then
-		echo "[i] Creating user: $MYSQL_USER with password $MYSQL_PASSWORD"
-		echo "GRANT ALL ON \`$MYSQL_DATABASE\`.* to '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" >> $tfile
-	    fi
+		if [ "$MYSQL_USER" != "" ]; then
+			echo "[i] Creating user: $MYSQL_USER with password $MYSQL_PASSWORD"
+			echo "GRANT ALL ON \`$MYSQL_DATABASE\`.* to '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" >> $tfile
+		fi
 	fi
 
 	/usr/bin/mysqld --user=mysql --bootstrap --verbose=0 --skip-name-resolve --skip-networking=0 < $tfile
 	rm -f $tfile
 
-	for f in /docker-entrypoint-initdb.d/*; do
-		case "$f" in
-			*.sql)    echo "$0: running $f"; /usr/bin/mysqld --user=mysql --bootstrap --verbose=0 --skip-name-resolve --skip-networking=0 < "$f"; echo ;;
-			*.sql.gz) echo "$0: running $f"; gunzip -c "$f" | /usr/bin/mysqld --user=mysql --bootstrap --verbose=0 --skip-name-resolve --skip-networking=0 < "$f"; echo ;;
-			*)        echo "$0: ignoring or entrypoint initdb empty $f" ;;
-		esac
-		echo
-	done
+    # only run if we have a starting MYSQL_DATABASE env variable AND
+    # the /docker-entrypoint-initdb.d/ file is not empty
+	if [ "$MYSQL_DATABASE" != "" ] && [ "$(ls -A /docker-entrypoint-initdb.d 2>/dev/null)" ]; then
+
+		# start the server temporarily so that we can import seed files
+        echo
+        echo "Preparing to process the contents of /docker-entrypoint-initdb.d/"
+        echo
+		TEMP_OUTPUT_LOG=/tmp/mysqld_output
+		/usr/bin/mysqld --user=mysql --skip-name-resolve --skip-networking=0 --silent-startup > "${TEMP_OUTPUT_LOG}" 2>&1 &
+		PID="$!"
+	
+		# watch the output log until the server is running
+		until tail "${TEMP_OUTPUT_LOG}" | grep -q "Version:"; do
+			sleep 0.2
+		done
+
+		# use mysql client to import seed files while temp db is running
+		# use the starting MYSQL_DATABASE so mysql knows where to import
+		MYSQL_CLIENT="/usr/bin/mysql -u root -p$MYSQL_ROOT_PASSWORD"
+		
+        # loop through all the files in the seed directory
+        # redirect input (<) from .sql files into the mysql client command line
+        # pipe (|) the output of using `gunzip -c` on .sql.gz files
+		for f in /docker-entrypoint-initdb.d/*; do
+			case "$f" in
+				*.sql)    echo "  $0: running $f"; eval "${MYSQL_CLIENT} ${MYSQL_DATABASE} < $f"; echo ;;
+				*.sql.gz) echo "  $0: running $f"; gunzip -c "$f" | eval "${MYSQL_CLIENT} ${MYSQL_DATABASE}"; echo ;;
+			esac
+		done
+
+    	# send the temporary mysqld server a shutdown signal
+        # and wait till it's done before completeing the init process
+    	kill -s TERM "${PID}"
+    	wait "${PID}"
+        rm -f TEMP_OUTPUT_LOG
+    	echo "Completed processing seed files."
+	fi;
 
 	echo
 	echo 'MySQL init process done. Ready for start up.'
