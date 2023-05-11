@@ -261,7 +261,7 @@ dockerhub version 10.11.2 manifest creation:
   - docker manifest annotate $DOCKER_REGISTRY_DOCKERHUB_REPO:10.11.2 $DOCKER_REGISTRY_DOCKERHUB_REPO:10.11.2-arm64v8
     --os linux --arch arm64
   - docker manifest push $DOCKER_REGISTRY_DOCKERHUB_REPO:10.11.2
-gitlab minor version 10.6 manifest creation:
+gitlab minor version 10.11 manifest creation:
   image: yobasystems/alpine-docker:dind
   stage: manifest
   tags:
@@ -273,16 +273,16 @@ gitlab minor version 10.6 manifest creation:
   - docker pull $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:10.11.2-amd64
   - docker pull $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:10.11.2-arm32v7
   - docker pull $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:10.11.2-arm64v8
-  - docker manifest create $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:10.6 $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:10.11.2-amd64
+  - docker manifest create $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:10.11 $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:10.11.2-amd64
     $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:10.11.2-arm32v7 $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:10.11.2-arm64v8
-  - docker manifest annotate $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:10.6 $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:10.11.2-amd64
+  - docker manifest annotate $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:10.11 $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:10.11.2-amd64
     --os linux --arch amd64
-  - docker manifest annotate $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:10.6 $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:10.11.2-arm32v7
+  - docker manifest annotate $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:10.11 $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:10.11.2-arm32v7
     --os linux --arch arm
-  - docker manifest annotate $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:10.6 $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:10.11.2-arm64v8
+  - docker manifest annotate $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:10.11 $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:10.11.2-arm64v8
     --os linux --arch arm64
-  - docker manifest push $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:10.6
-dockerhub minor version 10.6 manifest creation:
+  - docker manifest push $DOCKER_REGISTRY/$DOCKER_REGISTRY_REPO:10.11
+dockerhub minor version 10.11 manifest creation:
   image: yobasystems/alpine-docker:dind
   stage: manifest
   tags:
@@ -294,15 +294,15 @@ dockerhub minor version 10.6 manifest creation:
   - docker pull $DOCKER_REGISTRY_DOCKERHUB_REPO:10.11.2-amd64
   - docker pull $DOCKER_REGISTRY_DOCKERHUB_REPO:10.11.2-arm32v7
   - docker pull $DOCKER_REGISTRY_DOCKERHUB_REPO:10.11.2-arm64v8
-  - docker manifest create $DOCKER_REGISTRY_DOCKERHUB_REPO:10.6 $DOCKER_REGISTRY_DOCKERHUB_REPO:10.11.2-amd64
+  - docker manifest create $DOCKER_REGISTRY_DOCKERHUB_REPO:10.11 $DOCKER_REGISTRY_DOCKERHUB_REPO:10.11.2-amd64
     $DOCKER_REGISTRY_DOCKERHUB_REPO:10.11.2-arm32v7 $DOCKER_REGISTRY_DOCKERHUB_REPO:10.11.2-arm64v8
-  - docker manifest annotate $DOCKER_REGISTRY_DOCKERHUB_REPO:10.6 $DOCKER_REGISTRY_DOCKERHUB_REPO:10.11.2-amd64
+  - docker manifest annotate $DOCKER_REGISTRY_DOCKERHUB_REPO:10.11 $DOCKER_REGISTRY_DOCKERHUB_REPO:10.11.2-amd64
     --os linux --arch amd64
-  - docker manifest annotate $DOCKER_REGISTRY_DOCKERHUB_REPO:10.6 $DOCKER_REGISTRY_DOCKERHUB_REPO:10.11.2-arm32v7
+  - docker manifest annotate $DOCKER_REGISTRY_DOCKERHUB_REPO:10.11 $DOCKER_REGISTRY_DOCKERHUB_REPO:10.11.2-arm32v7
     --os linux --arch arm
-  - docker manifest annotate $DOCKER_REGISTRY_DOCKERHUB_REPO:10.6 $DOCKER_REGISTRY_DOCKERHUB_REPO:10.11.2-arm64v8
+  - docker manifest annotate $DOCKER_REGISTRY_DOCKERHUB_REPO:10.11 $DOCKER_REGISTRY_DOCKERHUB_REPO:10.11.2-arm64v8
     --os linux --arch arm64
-  - docker manifest push $DOCKER_REGISTRY_DOCKERHUB_REPO:10.6
+  - docker manifest push $DOCKER_REGISTRY_DOCKERHUB_REPO:10.11
 gitlab major version 10 manifest creation:
   image: yobasystems/alpine-docker:dind
   stage: manifest
