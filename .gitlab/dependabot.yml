@@ -1,6 +1,14 @@
 version: 2
 updates:
   - package-ecosystem: docker
-    directory: /
+    directory: /alpine-mariadb-amd64/
+    schedule:
+      interval: weekly
+  - package-ecosystem: docker
+    directory: /alpine-mariadb-armhf/
+    schedule:
+      interval: weekly
+  - package-ecosystem: docker
+    directory: /alpine-mariadb-aarch64/
     schedule:
       interval: weekly
