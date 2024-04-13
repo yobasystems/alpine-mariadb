@@ -1,4 +1,4 @@
-# MariaDB Docker image running on Alpine Linux
+# MariaDB Container image running on Alpine Linux
 
 [![Docker Automated build](https://img.shields.io/docker/automated/yobasystems/alpine-mariadb.svg?style=for-the-badge&logo=docker)](https://hub.docker.com/r/yobasystems/alpine-mariadb/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/yobasystems/alpine-mariadb.svg?style=for-the-badge&logo=docker)](https://hub.docker.com/r/yobasystems/alpine-mariadb/)
@@ -8,7 +8,7 @@
 [![MariaDB Version](https://img.shields.io/badge/Mariadb%20version-v10.11.6-green.svg?style=for-the-badge&logo=mariadb)](https://mariadb.org/)
 
 
-This Docker image [(yobasystems/alpine-mariadb)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) is based on the minimal [Alpine Linux](https://alpinelinux.org/) with [MariaDB v10.11.6](https://mariadb.org/) (MySQL Compatible) database server.
+This Container image [(yobasystems/alpine-mariadb)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) is based on the minimal [Alpine Linux](https://alpinelinux.org/) with [MariaDB v10.11.6](https://mariadb.org/) (MySQL Compatible) database server.
 
 ### Alpine Version 3.19.1 (Released 2023-01-26)
 ##### MariaDB Version 10.11.6
@@ -32,7 +32,7 @@ This Docker image [(yobasystems/alpine-mariadb)](https://hub.docker.com/r/yobasy
 
 
 ## 🏔️ What is Alpine Linux?
-Alpine Linux is a Linux distribution built around musl libc and BusyBox. The image is only 5 MB in size and has access to a package repository that is much more complete than other BusyBox based images. This makes Alpine Linux a great image base for utilities and even production applications. Read more about Alpine Linux here and you can see how their mantra fits in right at home with Docker images.
+Alpine Linux is a Linux distribution built around musl libc and BusyBox. The image is only 5 MB in size and has access to a package repository that is much more complete than other BusyBox based images. This makes Alpine Linux a great image base for utilities and even production applications. Read more about Alpine Linux here and you can see how their mantra fits in right at home with Container images.
 
 ## What is MariaDB?
 MariaDB Server is one of the most popular database servers in the world. It’s made by the original developers of MySQL and guaranteed to stay open source. Notable users include Wikipedia, WordPress.com and Google.
