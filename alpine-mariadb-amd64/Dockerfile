@@ -1,4 +1,4 @@
-FROM yobasystems/alpine:3.19.1-amd64
+FROM yobasystems/alpine:3.20.0-amd64
 
 ARG BUILD_DATE
 ARG VCS_REF
