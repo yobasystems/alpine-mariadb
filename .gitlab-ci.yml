@@ -79,21 +79,21 @@ sast:
         docker push $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:${CI_COMMIT_TAG}-${ARCH}
       fi
 
-deploy amd64:
+amd64 mariadb deploy:
   <<: *deploy_definition
   variables:
     ARCH: amd64
   needs:
     - amd64 mariadb build
 
-deploy arm32v7:
+arm32v7 mariadb deploy:
   <<: *deploy_definition
   variables:
     ARCH: armhf
   needs:
     - arm32v7 mariadb build
 
-deploy arm64v8:
+arm64v8 mariadb deploy:
   <<: *deploy_definition
   variables:
     ARCH: aarch64
@@ -135,9 +135,9 @@ manifest creation:
         create_and_push_manifest $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO latest
       fi
   needs:
-    - deploy amd64
-    - deploy arm32v7
-    - deploy arm64v8
+    - amd64 mariadb deploy
+    - arm32v7 mariadb deploy
+    - arm64v8 mariadb deploy
   rules:
     - if: $CI_COMMIT_TAG
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
