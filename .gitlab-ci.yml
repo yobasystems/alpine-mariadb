@@ -26,7 +26,6 @@ include:
       --build-arg VCS_REF=${CI_COMMIT_SHORT_SHA}
       --build-arg BUILD_DATE=${CI_COMMIT_TIMESTAMP}
       -t ${CI_REGISTRY_IMAGE}/${CI_COMMIT_SHORT_SHA}:${ARCH}
-      -t ${CI_REGISTRY_IMAGE}:${CI_APPLICATION_TAG}-${ARCH}
       --platform linux/${PLATFORM}
       .
 
