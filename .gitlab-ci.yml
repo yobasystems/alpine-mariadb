@@ -81,22 +81,31 @@ sast:
 
 amd64 mariadb deploy:
   <<: *deploy_definition
+  tags:
+    - amd64
   variables:
     ARCH: amd64
+    PLATFORM: amd64
   needs:
     - amd64 mariadb build
 
 arm32v7 mariadb deploy:
   <<: *deploy_definition
+  tags:
+    - armhf
   variables:
     ARCH: armhf
+    PLATFORM: arm/v7
   needs:
     - arm32v7 mariadb build
 
 arm64v8 mariadb deploy:
   <<: *deploy_definition
+  tags:
+    - aarch64
   variables:
     ARCH: aarch64
+    PLATFORM: arm64/v8
   needs:
     - arm64v8 mariadb build
 
