@@ -16,20 +16,17 @@ include:
   variables:
     CI_APPLICATION_REPOSITORY: "$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG"
     CI_APPLICATION_TAG: "$CI_COMMIT_SHA"
-    ARCH: "$ARCH"
-    PLATFORM: "$PLATFORM"
   script:
-    - export COMMIT_TIME=$(git show -s --format=%ct $CI_COMMIT_SHA)
-    - export CI_COMMIT_SHORT_SHA=$(echo $CI_COMMIT_SHA | cut -c1-8)
-    - apk add --update git
-    - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token "$CI_REGISTRY" --password-stdin
+    - export COMMIT_TIME=$(git show -s --format=%ct $CI_APPLICATION_TAG)
+    - echo "$COMMIT_TIME" && echo "$CI_COMMIT_SHORT_SHA"
     - echo "Building for ARCH=${ARCH}, PLATFORM=${PLATFORM}"
+    - apk add --update git
     - cd alpine-mariadb-${ARCH}/
     - docker build
       --build-arg VCS_REF=${CI_COMMIT_SHORT_SHA}
-      --build-arg BUILD_DATE=${COMMIT_TIME}
-      -t ${CI_APPLICATION_REPOSITORY}:${CI_APPLICATION_TAG}-${ARCH}
-      -t ${CI_APPLICATION_REPOSITORY}:${CI_COMMIT_SHORT_SHA}-${ARCH}
+      --build-arg BUILD_DATE=${CI_COMMIT_TIMESTAMP}
+      -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}-${ARCH}
+      -t ${CI_REGISTRY_IMAGE}:${CI_APPLICATION_TAG}-${ARCH}
       --platform linux/${PLATFORM}
       .
 
