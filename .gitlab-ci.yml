@@ -15,7 +15,7 @@ include:
   stage: build
   variables:
     CI_APPLICATION_REPOSITORY: "$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG"
-    CI_APPLICATION_TAG: "$CI_COMMIT_SHA"
+    CI_APPLICATION_TAG: "$CI_COMMIT_SHORT_SHA"
   script:
     - export COMMIT_TIME=$(git show -s --format=%ct $CI_APPLICATION_TAG)
     - echo "$COMMIT_TIME" && echo "$CI_COMMIT_SHORT_SHA"
@@ -25,7 +25,7 @@ include:
     - docker build
       --build-arg VCS_REF=${CI_COMMIT_SHORT_SHA}
       --build-arg BUILD_DATE=${CI_COMMIT_TIMESTAMP}
-      -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}-${ARCH}
+      -t ${CI_REGISTRY_IMAGE}/${CI_COMMIT_SHORT_SHA}:${ARCH}
       -t ${CI_REGISTRY_IMAGE}:${CI_APPLICATION_TAG}-${ARCH}
       --platform linux/${PLATFORM}
       .
