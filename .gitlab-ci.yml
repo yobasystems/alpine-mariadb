@@ -15,10 +15,9 @@ include:
   stage: build
   variables:
     CI_APPLICATION_REPOSITORY: "$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG"
-    CI_APPLICATION_TAG: "$CI_COMMIT_SHORT_SHA"
+    CI_APPLICATION_TAG: "$CI_COMMIT_SHA"
   script:
-    - export COMMIT_TIME=$(git show -s --format=%ct $CI_APPLICATION_TAG)
-    - echo "$COMMIT_TIME" && echo "$CI_COMMIT_SHORT_SHA"
+    - echo "Build Timestamp ${CI_COMMIT_TIMESTAMP} - ${CI_COMMIT_SHORT_SHA}"
     - echo "Building for ARCH=${ARCH}, PLATFORM=${PLATFORM}"
     - apk add --update git
     - cd alpine-mariadb-${ARCH}/
