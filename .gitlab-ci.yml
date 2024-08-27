@@ -12,42 +12,37 @@ include:
 variables:
 
 .build_template: &build_definition
-  image: yobasystems/alpine-docker:dind
-  stage: build
-  services:
-    - yobasystems/alpine-docker:dind
-  variables:
-    CI_APPLICATION_REPOSITORY: "$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG"
-    CI_APPLICATION_TAG: "$CI_COMMIT_SHA"
   script:
-    - export COMMIT_TIME=$(git show -s --format=%ct $CI_APPLICATION_TAG)
-    - echo "$COMMIT_TIME" && echo "$CI_COMMIT_SHORT_SHA"
-    - apk add --update git
-    - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token "$CI_REGISTRY" --password-stdin
-    - cd alpine-mariadb-${ARCH}/ && docker build --build-arg VCS_REF=${CI_COMMIT_SHORT_SHA}
-      --build-arg BUILD_DATE=${COMMIT_TIME} -t ${CI_APPLICATION_REPOSITORY}:${CI_APPLICATION_TAG}-${ARCH}
-      -t ${CI_APPLICATION_REPOSITORY}:${ARCH} --platform linux/${PLATFORM} .
+    - |
+      if [ -z "$ARCH" ] || [ -z "$PLATFORM" ] || [ -z "$CI_COMMIT_SHORT_SHA" ] || [ -z "$COMMIT_TIME" ] || [ -z "$CI_APPLICATION_REPOSITORY" ] || [ -z "$CI_APPLICATION_TAG" ]; then
+        echo "Error: One or more required variables are not set"
+        exit 1
+      fi
+    - echo "Building for ARCH=${ARCH}, PLATFORM=${PLATFORM}"
+    - cd alpine-mariadb-${ARCH}/
+    - >
+      docker build
+      --build-arg VCS_REF=${CI_COMMIT_SHORT_SHA}
+      --build-arg BUILD_DATE=${COMMIT_TIME}
+      -t ${CI_APPLICATION_REPOSITORY}:${CI_APPLICATION_TAG}-${ARCH}
+      -t ${CI_APPLICATION_REPOSITORY}:${ARCH}
+      --platform linux/${PLATFORM}
+      .
 
 amd64 mariadb build:
   <<: *build_definition
-  tags:
-    - amd64
   variables:
     ARCH: amd64
     PLATFORM: amd64
 
 arm32v7 mariadb build:
   <<: *build_definition
-  tags:
-    - armhf
   variables:
     ARCH: armhf
     PLATFORM: arm/v7
 
 arm64v8 mariadb build:
   <<: *build_definition
-  tags:
-    - aarch64
   variables:
     ARCH: aarch64
     PLATFORM: arm64/v8
