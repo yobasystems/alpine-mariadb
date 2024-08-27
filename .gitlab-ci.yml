@@ -17,8 +17,14 @@ include:
     CI_APPLICATION_REPOSITORY: "$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG"
     CI_APPLICATION_TAG: "$CI_COMMIT_SHA"
   script:
-    - export COMMIT_TIME=$(git show -s --format=%ct $CI_APPLICATION_TAG)
-    - echo "$COMMIT_TIME" && echo "$CI_COMMIT_SHORT_SHA"
+    - export COMMIT_TIME=$(git show -s --format=%ct $CI_COMMIT_SHA)
+    - export CI_COMMIT_SHORT_SHA=$(echo $CI_COMMIT_SHA | cut -c1-8)
+    - echo "COMMIT_TIME: $COMMIT_TIME"
+    - echo "CI_COMMIT_SHORT_SHA: $CI_COMMIT_SHORT_SHA"
+    - echo "CI_APPLICATION_REPOSITORY: $CI_APPLICATION_REPOSITORY"
+    - echo "CI_APPLICATION_TAG: $CI_APPLICATION_TAG"
+    - echo "ARCH: $ARCH"
+    - echo "PLATFORM: $PLATFORM"
     - apk add --update git
     - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token "$CI_REGISTRY" --password-stdin
     - |
