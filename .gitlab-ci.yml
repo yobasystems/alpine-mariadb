@@ -13,8 +13,6 @@ include:
 .build_template: &build_definition
   image: yobasystems/alpine-docker:dind
   stage: build
-  services:
-    - yobasystems/alpine-docker:dind
   variables:
     CI_APPLICATION_REPOSITORY: "$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG"
     CI_APPLICATION_TAG: "$CI_COMMIT_SHA"
@@ -70,8 +68,6 @@ arm64v8 mariadb build:
   stage: deploy
   only:
     - main
-  services:
-    - yobasystems/alpine-docker:dind
   script:
     - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token "$CI_REGISTRY" --password-stdin
     - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
@@ -117,8 +113,6 @@ deploy arm64v8:
 manifest creation:
   image: yobasystems/alpine-docker:dind
   stage: manifest
-  services:
-    - yobasystems/alpine-docker:dind
   script:
     - mkdir -p ~/.docker
     - echo '{"experimental":"enabled"}' > ~/.docker/config.json
