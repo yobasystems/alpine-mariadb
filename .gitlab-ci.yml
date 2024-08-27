@@ -10,9 +10,6 @@ include:
   - template: Security/SAST.gitlab-ci.yml
 
 variables:
-  DOCKER_DRIVER: overlay2
-  DOCKER_TLS_CERTDIR: ""
-  DOCKER_HOST: tcp://docker:2375
 
 .build_template: &build_definition
   image: yobasystems/alpine-docker:dind
@@ -60,8 +57,10 @@ arm64v8 mariadb build:
 .deploy_template: &deploy_definition
   image: yobasystems/alpine-docker:dind
   stage: deploy
+  only:
+    - main
   services:
-    - docker:dind
+    - yobasystems/alpine-docker:dind
   script:
     - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token "$CI_REGISTRY" --password-stdin
     - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
@@ -107,6 +106,8 @@ deploy arm64v8:
 manifest creation:
   image: yobasystems/alpine-docker:dind
   stage: manifest
+  only:
+    - main
   services:
     - yobasystems/alpine-docker:dind
   script:
