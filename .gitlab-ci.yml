@@ -25,11 +25,10 @@ include:
     - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token "$CI_REGISTRY" --password-stdin
     - echo "Building for ARCH=${ARCH}, PLATFORM=${PLATFORM}"
     - cd alpine-mariadb-${ARCH}/
-    - >
-      docker build
+    - docker build
       --build-arg VCS_REF=${CI_COMMIT_SHORT_SHA}
       --build-arg BUILD_DATE=${COMMIT_TIME}
-      -t ${CI_APPLICATION_REPOSITORY}:${CI_COMMIT_SHA}-${ARCH}
+      -t ${CI_APPLICATION_REPOSITORY}:${CI_APPLICATION_TAG}-${ARCH}
       -t ${CI_APPLICATION_REPOSITORY}:${CI_COMMIT_SHORT_SHA}-${ARCH}
       --platform linux/${PLATFORM}
       .
