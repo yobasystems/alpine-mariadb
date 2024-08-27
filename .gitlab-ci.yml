@@ -106,8 +106,6 @@ deploy arm64v8:
 manifest creation:
   image: yobasystems/alpine-docker:dind
   stage: manifest
-  only:
-    - main
   services:
     - yobasystems/alpine-docker:dind
   script:
