@@ -2,6 +2,7 @@ stages:
   - build
   - test
   - deploy
+  - manifest
 
 include:
   - remote: https://gitlab.com/yobasystems/gitlab-ci-templates/raw/master/container_scanning_all_arch.yml
@@ -132,12 +133,12 @@ manifest creation:
         local repo=$1
         local tag=$2
         docker manifest create $repo:$tag \
-          $repo:${tag}-amd64 \
-          $repo:${tag}-armhf \
-          $repo:${tag}-aarch64
-        docker manifest annotate $repo:$tag $repo:${tag}-amd64 --os linux --arch amd64
-        docker manifest annotate $repo:$tag $repo:${tag}-armhf --os linux --arch arm --variant v7
-        docker manifest annotate $repo:$tag $repo:${tag}-aarch64 --os linux --arch arm64 --variant v8
+          $repo:amd64 \
+          $repo:armhf \
+          $repo:aarch64
+        docker manifest annotate $repo:$tag $repo:amd64 --os linux --arch amd64
+        docker manifest annotate $repo:$tag $repo:armhf --os linux --arch arm --variant v7
+        docker manifest annotate $repo:$tag $repo:aarch64 --os linux --arch arm64 --variant v8
         docker manifest push $repo:$tag
       }
     - |
