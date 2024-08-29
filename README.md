@@ -97,6 +97,7 @@ MariaDB is developed as open source software and as a relational database it pro
 * `MYSQL_CHARSET`: default charset (utf8) for Mariadb
 * `MYSQL_COLLATION`: default collation (utf8_general_ci) for Mariadb
 
+It would be best to inject these as secrets in either kubernetes or swarm
 
 #### List of Character Sets & information
 
@@ -200,6 +201,32 @@ mysql:
   volumes:
     - /data/example/mysql:/var/lib/mysql
   restart: always
+```
+
+## Docker Swarm example:
+
+The following is a docker swarm example, firstly create some secrets then create the service;
+
+```
+printf "hguyFtgfR4r9R4r76" | docker secret create MYSQL_ROOT_PASSWORD -
+printf "wordpressdb" | docker secret create MYSQL_DATABASE -
+printf "wordpressuser" | docker secret create MYSQL_USER -
+printf "hguyFt6S95dgfR4ryb" | docker secret create MYSQL_PASSWORD -
+printf "utf8mb4" | docker secret create MYSQL_CHARSET -
+printf "utf8mb4_general_ci" | docker secret create MYSQL_COLLATION -
+
+docker service create \
+     --name mariadb \
+     --replicas 1 \
+     --secret source=MYSQL_ROOT_PASSWORD,target=mysql_root_password \
+     --secret source=MYSQL_PASSWORD,target=mysql_password \
+     --secret source=MYSQL_USER,target=mysql_user \
+     --secret source=MYSQL_DATABASE,target=mysql_database \
+     -e MYSQL_ROOT_PASSWORD_FILE="/run/secrets/mysql_root_password" \
+     -e MYSQL_PASSWORD_FILE="/run/secrets/mysql_password" \
+     -e MYSQL_USER_FILE="/run/secrets/mysql_user" \
+     -e MYSQL_DATABASE_FILE="/run/secrets/mysql_database" \
+     yobasystems/alpine-mariadb:latest
 ```
 
 ## 🔍 Image contents & Vulnerability analysis
