@@ -69,17 +69,29 @@ sast:
     - docker tag ${CI_REGISTRY_IMAGE}/${CI_COMMIT_SHORT_SHA}:${ARCH} $CI_REGISTRY_IMAGE:${ARCH}
     - docker tag ${CI_REGISTRY_IMAGE}/${CI_COMMIT_SHORT_SHA}:${ARCH} $DOCKER_REGISTRY_DOCKERHUB_REPO:${ARCH}
     - docker tag ${CI_REGISTRY_IMAGE}/${CI_COMMIT_SHORT_SHA}:${ARCH} $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:${ARCH}
+    - docker tag ${CI_REGISTRY_IMAGE}/${CI_COMMIT_SHORT_SHA}:${ARCH} $CI_REGISTRY_IMAGE:${ARCH2}
+    - docker tag ${CI_REGISTRY_IMAGE}/${CI_COMMIT_SHORT_SHA}:${ARCH} $DOCKER_REGISTRY_DOCKERHUB_REPO:${ARCH2}
+    - docker tag ${CI_REGISTRY_IMAGE}/${CI_COMMIT_SHORT_SHA}:${ARCH} $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:${ARCH2}
     - docker push $CI_REGISTRY_IMAGE:${ARCH}
     - docker push $DOCKER_REGISTRY_DOCKERHUB_REPO:${ARCH}
     - docker push $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:${ARCH}
+    - docker push $CI_REGISTRY_IMAGE:${ARCH2}
+    - docker push $DOCKER_REGISTRY_DOCKERHUB_REPO:${ARCH2}
+    - docker push $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:${ARCH2}
     - |
       if [[ "$CI_COMMIT_TAG" ]]; then
         docker tag ${CI_REGISTRY_IMAGE}/${CI_COMMIT_SHORT_SHA}:${ARCH} $CI_REGISTRY_IMAGE:${CI_COMMIT_TAG}-${ARCH}
         docker tag ${CI_REGISTRY_IMAGE}/${CI_COMMIT_SHORT_SHA}:${ARCH} $DOCKER_REGISTRY_DOCKERHUB_REPO:${CI_COMMIT_TAG}-${ARCH}
         docker tag ${CI_REGISTRY_IMAGE}/${CI_COMMIT_SHORT_SHA}:${ARCH} $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:${CI_COMMIT_TAG}-${ARCH}
+        docker tag ${CI_REGISTRY_IMAGE}/${CI_COMMIT_SHORT_SHA}:${ARCH} $CI_REGISTRY_IMAGE:${CI_COMMIT_TAG}-${ARCH2}
+        docker tag ${CI_REGISTRY_IMAGE}/${CI_COMMIT_SHORT_SHA}:${ARCH} $DOCKER_REGISTRY_DOCKERHUB_REPO:${CI_COMMIT_TAG}-${ARCH2}
+        docker tag ${CI_REGISTRY_IMAGE}/${CI_COMMIT_SHORT_SHA}:${ARCH} $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:${CI_COMMIT_TAG}-${ARCH2}
         docker push $CI_REGISTRY_IMAGE:${CI_COMMIT_TAG}-${ARCH}
         docker push $DOCKER_REGISTRY_DOCKERHUB_REPO:${CI_COMMIT_TAG}-${ARCH}
         docker push $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:${CI_COMMIT_TAG}-${ARCH}
+        docker push $CI_REGISTRY_IMAGE:${CI_COMMIT_TAG}-${ARCH2}
+        docker push $DOCKER_REGISTRY_DOCKERHUB_REPO:${CI_COMMIT_TAG}-${ARCH2}
+        docker push $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO:${CI_COMMIT_TAG}-${ARCH2}
       fi
 
 amd64 mariadb deploy:
@@ -88,6 +100,7 @@ amd64 mariadb deploy:
     - amd64
   variables:
     ARCH: amd64
+    ARCH2: x86_64
     PLATFORM: amd64
   needs:
     - amd64 mariadb build
@@ -98,6 +111,7 @@ arm32v7 mariadb deploy:
     - armhf
   variables:
     ARCH: armhf
+    ARCH2: arm32v7
     PLATFORM: arm/v7
   needs:
     - arm32v7 mariadb build
@@ -108,13 +122,14 @@ arm64v8 mariadb deploy:
     - aarch64
   variables:
     ARCH: aarch64
+    ARCH2: arm64v8
     PLATFORM: arm64/v8
   needs:
     - arm64v8 mariadb build
 
 manifest creation:
   image: yobasystems/alpine-docker:dind
-  stage: deploy
+  stage: manifest
   needs:
     - amd64 mariadb deploy
     - arm32v7 mariadb deploy
