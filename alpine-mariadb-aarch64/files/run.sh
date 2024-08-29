@@ -1,5 +1,13 @@
 #!/bin/sh
 
+# Set MYSQL_ variables based on MARIADB_ variables if they exist
+[ -n "$MARIADB_ROOT_PASSWORD" ] && export MYSQL_ROOT_PASSWORD="$MARIADB_ROOT_PASSWORD"
+[ -n "$MARIADB_DATABASE" ] && export MYSQL_DATABASE="$MARIADB_DATABASE"
+[ -n "$MARIADB_USER" ] && export MYSQL_USER="$MARIADB_USER"
+[ -n "$MARIADB_PASSWORD" ] && export MYSQL_PASSWORD="$MARIADB_PASSWORD"
+[ -n "$MARIADB_CHARSET" ] && export MYSQL_CHARSET="$MARIADB_CHARSET"
+[ -n "$MARIADB_COLLATION" ] && export MYSQL_COLLATION="$MARIADB_COLLATION"
+
 # Function to read secret from file
 read_secret() {
     local secret_file="$1"
