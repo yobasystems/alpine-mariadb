@@ -1,28 +1,48 @@
 #!/bin/sh
 
-# Set MYSQL_ variables based on MARIADB_ variables if they exist
-[ -n "$MARIADB_ROOT_PASSWORD" ] && export MYSQL_ROOT_PASSWORD="$MARIADB_ROOT_PASSWORD"
-[ -n "$MARIADB_DATABASE" ] && export MYSQL_DATABASE="$MARIADB_DATABASE"
-[ -n "$MARIADB_USER" ] && export MYSQL_USER="$MARIADB_USER"
-[ -n "$MARIADB_PASSWORD" ] && export MYSQL_PASSWORD="$MARIADB_PASSWORD"
-[ -n "$MARIADB_CHARSET" ] && export MYSQL_CHARSET="$MARIADB_CHARSET"
-[ -n "$MARIADB_COLLATION" ] && export MYSQL_COLLATION="$MARIADB_COLLATION"
-
 # Function to read secret from file
 read_secret() {
     local secret_file="$1"
-    if [ -f "$secret_file" ]; then
-        if [ -r "$secret_file" ]; then
-            cat "$secret_file"
-        else
-            echo "[ERROR] Secret file $secret_file is not readable" >&2
-            return 1
-        fi
+    if [ -f "$secret_file" ] && [ -r "$secret_file" ]; then
+        cat "$secret_file"
     else
-        echo "[WARNING] Secret file $secret_file does not exist" >&2
         echo ""
     fi
 }
+
+# Set MYSQL_ variables based on MARIADB_ variables or secrets if MYSQL_ is not set
+for var in ROOT_PASSWORD DATABASE USER PASSWORD CHARSET COLLATION; do
+    mysql_var="MYSQL_${var}"
+    mariadb_var="MARIADB_${var}"
+    
+    # Check environment variables
+    if [ -z "${!mysql_var}" ] && [ -n "${!mariadb_var}" ]; then
+        export "$mysql_var"="${!mariadb_var}"
+    fi
+    
+    # Check secrets
+    mysql_secret="/run/secrets/mysql_${var,,}"
+    mariadb_secret="/run/secrets/mariadb_${var,,}"
+    
+    if [ -z "${!mysql_var}" ] && [ -f "$mariadb_secret" ]; then
+        export "$mysql_var"=$(read_secret "$mariadb_secret")
+    elif [ -z "${!mysql_var}" ] && [ -f "$mysql_secret" ]; then
+        export "$mysql_var"=$(read_secret "$mysql_secret")
+    fi
+done
+
+# Handle *_FILE variables
+for var in ROOT_PASSWORD DATABASE USER PASSWORD; do
+    mysql_var="MYSQL_${var}"
+    mysql_file_var="MYSQL_${var}_FILE"
+    mariadb_file_var="MARIADB_${var}_FILE"
+    
+    if [ -z "${!mysql_var}" ] && [ -n "${!mysql_file_var}" ]; then
+        export "$mysql_var"=$(read_secret "${!mysql_file_var}")
+    elif [ -z "${!mysql_var}" ] && [ -n "${!mariadb_file_var}" ]; then
+        export "$mysql_var"=$(read_secret "${!mariadb_file_var}")
+    fi
+done
 
 # execute any pre-init scripts
 for i in /scripts/pre-init.d/*sh
