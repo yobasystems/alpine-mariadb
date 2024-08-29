@@ -4,8 +4,14 @@
 read_secret() {
     local secret_file="$1"
     if [ -f "$secret_file" ]; then
-        cat "$secret_file"
+        if [ -r "$secret_file" ]; then
+            cat "$secret_file"
+        else
+            echo "[ERROR] Secret file $secret_file is not readable" >&2
+            return 1
+        fi
     else
+        echo "[WARNING] Secret file $secret_file does not exist" >&2
         echo ""
     fi
 }
