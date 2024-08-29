@@ -157,20 +157,30 @@ manifest creation:
         docker manifest push $repo:$tag
       }
     - |
-      if [ -n "$CI_COMMIT_TAG" ] && echo "$CI_COMMIT_TAG" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+(-[0-9]+)?$'; then
-        VERSION=$(echo $CI_COMMIT_TAG | cut -d- -f1)
-        MAJOR=$(echo $VERSION | cut -d. -f1)
-        MINOR=$(echo $VERSION | cut -d. -f2)
-        PATCH=$(echo $VERSION | cut -d. -f3)
-        
-        for repo in $CI_REGISTRY_IMAGE $DOCKER_REGISTRY_DOCKERHUB_REPO $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO; do
-          create_and_push_manifest $repo $CI_COMMIT_TAG
-          create_and_push_manifest $repo $MAJOR
-          create_and_push_manifest $repo $MAJOR.$MINOR
-          create_and_push_manifest $repo $MAJOR.$MINOR.$PATCH
-          create_and_push_manifest $repo latest
-        done
+      if [ -n "$CI_COMMIT_TAG" ]; then
+        echo "Processing tag: $CI_COMMIT_TAG"
+        if echo "$CI_COMMIT_TAG" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+(-[0-9]+)?$'; then
+          echo "Processing tag into Major Minor Patch"
+          VERSION=$(echo $CI_COMMIT_TAG | cut -d- -f1)
+          MAJOR=$(echo $VERSION | cut -d. -f1)
+          MINOR=$(echo $VERSION | cut -d. -f2)
+          PATCH=$(echo $VERSION | cut -d. -f3)
+          
+          for repo in $CI_REGISTRY_IMAGE $DOCKER_REGISTRY_DOCKERHUB_REPO $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO; do
+            create_and_push_manifest $repo $CI_COMMIT_TAG
+            create_and_push_manifest $repo $MAJOR
+            create_and_push_manifest $repo $MAJOR.$MINOR
+            create_and_push_manifest $repo $MAJOR.$MINOR.$PATCH
+            create_and_push_manifest $repo latest
+          done
+        else
+          echo "Tag does not match version format, only creating latest manifest"
+          for repo in $CI_REGISTRY_IMAGE $DOCKER_REGISTRY_DOCKERHUB_REPO $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO; do
+            create_and_push_manifest $repo latest
+          done
+        fi
       else
+        echo "No tag detected, creating only latest manifest"
         for repo in $CI_REGISTRY_IMAGE $DOCKER_REGISTRY_DOCKERHUB_REPO $DOCKER_REGISTRY_QUAY/$DOCKER_REGISTRY_QUAY_REPO; do
           create_and_push_manifest $repo latest
         done
