@@ -187,7 +187,7 @@ manifest creation version:
       create_and_push_manifest() {
         repo=$1
         tag=$2
-        docker manifest create $repo:$tag \
+        docker manifest create --amend $repo:$tag \
           $repo:amd64 \
           $repo:armhf \
           $repo:aarch64
