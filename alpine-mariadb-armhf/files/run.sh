@@ -68,6 +68,15 @@ if [ -d /var/lib/mysql/mysql ]; then
 else
     echo "[i] DB data directory not found, creating initial DBs"
 
+    # execute any first-run scripts
+    for i in /scripts/first-run.d/*sh
+    do
+        if [ -e "${i}" ]; then
+            echo "[i] first-run.d - processing $i"
+            . "${i}"
+        fi
+    done
+
     chown -R mysql:mysql /var/lib/mysql
 
     mariadb-install-db --user=mysql --ldata=/var/lib/mysql > /dev/null
