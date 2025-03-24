@@ -2,9 +2,9 @@
 
 # Function to read secret from file
 read_secret() {
-    local secret_file="$1"
-    if [ -f "$secret_file" ] && [ -r "$secret_file" ]; then
-        cat "$secret_file"
+    _secret_file="$1"
+    if [ -f "$_secret_file" ] && [ -r "$_secret_file" ]; then
+        cat "$_secret_file"
     else
         echo ""
     fi
@@ -63,14 +63,14 @@ else
 fi
 
 if [ -d /var/lib/mysql/mysql ]; then
-    echo "[i] MySQL directory already present, skipping creation"
+    echo "[i] DB data directory already present, skipping creation"
     chown -R mysql:mysql /var/lib/mysql
 else
-    echo "[i] MySQL data directory not found, creating initial DBs"
+    echo "[i] DB data directory not found, creating initial DBs"
 
     chown -R mysql:mysql /var/lib/mysql
 
-    mysql_install_db --user=mysql --ldata=/var/lib/mysql > /dev/null
+    mariadb-install-db --user=mysql --ldata=/var/lib/mysql > /dev/null
 
     # Handle MYSQL_ROOT_PASSWORD
     if [ -n "$MYSQL_ROOT_PASSWORD_FILE" ]; then
@@ -81,7 +81,7 @@ else
 
     if [ -z "$MYSQL_ROOT_PASSWORD" ]; then
         MYSQL_ROOT_PASSWORD=$(pwgen 16 1)
-        echo "[i] MySQL root Password: $MYSQL_ROOT_PASSWORD"
+        echo "[i] Root Password: $MYSQL_ROOT_PASSWORD"
     fi
 
     # Handle MYSQL_DATABASE
@@ -116,7 +116,7 @@ else
         return 1
     fi
 
-    cat << EOF > $tfile
+    cat << EOF > "$tfile"
 USE mysql;
 FLUSH PRIVILEGES ;
 GRANT ALL ON *.* TO 'root'@'%' identified by '$MYSQL_ROOT_PASSWORD' WITH GRANT OPTION ;
@@ -130,20 +130,20 @@ EOF
         echo "[i] Creating database: $MYSQL_DATABASE"
         if [ "$MYSQL_CHARSET" != "" ] && [ "$MYSQL_COLLATION" != "" ]; then
             echo "[i] with character set [$MYSQL_CHARSET] and collation [$MYSQL_COLLATION]"
-            echo "CREATE DATABASE IF NOT EXISTS \`$MYSQL_DATABASE\` CHARACTER SET $MYSQL_CHARSET COLLATE $MYSQL_COLLATION;" >> $tfile
+            echo "CREATE DATABASE IF NOT EXISTS \`$MYSQL_DATABASE\` CHARACTER SET $MYSQL_CHARSET COLLATE $MYSQL_COLLATION;" >> "$tfile"
         else
             echo "[i] with character set: 'utf8' and collation: 'utf8_general_ci'"
-            echo "CREATE DATABASE IF NOT EXISTS \`$MYSQL_DATABASE\` CHARACTER SET utf8 COLLATE utf8_general_ci;" >> $tfile
+            echo "CREATE DATABASE IF NOT EXISTS \`$MYSQL_DATABASE\` CHARACTER SET utf8 COLLATE utf8_general_ci;" >> "$tfile"
         fi
 
         if [ "$MYSQL_USER" != "" ]; then
             echo "[i] Creating user: $MYSQL_USER with password $MYSQL_PASSWORD"
-            echo "GRANT ALL ON \`$MYSQL_DATABASE\`.* to '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" >> $tfile
+            echo "GRANT ALL ON \`$MYSQL_DATABASE\`.* to '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" >> "$tfile"
         fi
     fi
 
-    /usr/bin/mysqld --user=mysql --bootstrap --verbose=0 --skip-name-resolve --skip-networking=0 < $tfile
-    rm -f $tfile
+    /usr/bin/mariadbd --user=mysql --bootstrap --verbose=0 --skip-name-resolve --skip-networking=0 < "$tfile"
+    rm -f "$tfile"
 
     # only run if we have a starting MYSQL_DATABASE env variable AND
     # the /docker-entrypoint-initdb.d/ file is not empty
@@ -153,8 +153,8 @@ EOF
         echo
         echo "Preparing to process the contents of /docker-entrypoint-initdb.d/"
         echo
-        TEMP_OUTPUT_LOG=/tmp/mysqld_output
-        /usr/bin/mysqld --user=mysql --skip-name-resolve --skip-networking=0 --silent-startup > "${TEMP_OUTPUT_LOG}" 2>&1 &
+        TEMP_OUTPUT_LOG=/tmp/mariadbd_output
+        /usr/bin/mariadbd --user=mysql --skip-name-resolve --skip-networking=0 --silent-startup > "${TEMP_OUTPUT_LOG}" 2>&1 &
         PID="$!"
         
         # watch the output log until the server is running
@@ -164,7 +164,7 @@ EOF
 
         # use mysql client to import seed files while temp db is running
         # use the starting MYSQL_DATABASE so mysql knows where to import
-        MYSQL_CLIENT="/usr/bin/mysql -u root -p$MYSQL_ROOT_PASSWORD"
+        MYSQL_CLIENT="/usr/bin/mariadb -u root -p$MYSQL_ROOT_PASSWORD"
         
         # loop through all the files in the seed directory
         # redirect input (<) from .sql files into the mysql client command line
@@ -176,7 +176,7 @@ EOF
             esac
         done
 
-        # send the temporary mysqld server a shutdown signal
+        # send the temporary mariadbd server a shutdown signal
         # and wait till it's done before completeing the init process
         kill -s TERM "${PID}"
         wait "${PID}"
@@ -185,10 +185,10 @@ EOF
     fi;
 
     echo
-    echo 'MySQL init process done. Ready for start up.'
+    echo 'DB init process done. Ready for start up.'
     echo
 
-    echo "exec /usr/bin/mysqld --user=mysql --console --skip-name-resolve --skip-networking=0" "$@"
+    echo "exec /usr/bin/mariadbd --user=mysql --console --skip-name-resolve --skip-networking=0" "$@"
 fi
 
 # execute any pre-exec scripts
@@ -196,8 +196,8 @@ for i in /scripts/pre-exec.d/*sh
 do
     if [ -e "${i}" ]; then
         echo "[i] pre-exec.d - processing $i"
-        . ${i}
+        . "${i}"
     fi
 done
 
-exec /usr/bin/mysqld --user=mysql --console --skip-name-resolve --skip-networking=0 $@
+exec /usr/bin/mariadbd --user=mysql --console --skip-name-resolve --skip-networking=0 "$@"
