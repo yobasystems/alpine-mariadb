@@ -85,6 +85,17 @@ MariaDB is developed as open source software and as a relational database it pro
 * `/var/lib/mysql`: Database files
 * `/var/lib/mysql/mysql-bin`: MariaDB logs
 
+#### Init scripts
+* `/docker-entrypoint-initdb.d` : Database backup files for a running system which already has DB
+* `/scripts/pre-exec.d` : Scripts to run before the main process
+* `/scripts/pre-init.d` : Scripts to run before the database is initialized
+* `/scripts/first-run.d` : Scripts to run only the first time the database is initialized
+
+##### Init scripts execution order
+1. `/scripts/pre-init.d`
+2. `/scripts/first-run.d`
+3. `/docker-entrypoint-initdb.d`
+4. `/scripts/pre-exec.d`
 
 ## Environment Variables:
 
