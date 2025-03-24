@@ -1,21 +1,21 @@
-FROM yobasystems/alpine:3.21.2-amd64
+FROM yobasystems/alpine:3.21.3-amd64
 
 ARG BUILD_DATE
 ARG VCS_REF
 
 LABEL maintainer="Dominic Taylor <dominic@yoba.systems>" \
     architecture="amd64/x86_64" \
-    mariadb-version="11.4.4" \
-    alpine-version="3.21.2" \
-    build="31-Jan-2025" \
+    mariadb-version="11.4.5" \
+    alpine-version="3.21.3" \
+    build="24-Mar-2025" \
     org.opencontainers.image.title="alpine-mariadb" \
     org.opencontainers.image.description="MariaDB Container image running on Alpine Linux" \
     org.opencontainers.image.authors="Dominic Taylor <dominic@yoba.systems>" \
     org.opencontainers.image.vendor="Yoba Systems" \
-    org.opencontainers.image.version="11.4.4" \
+    org.opencontainers.image.version="11.4.5" \
     org.opencontainers.image.url="https://hub.docker.com/r/yobasystems/alpine-mariadb/" \
     org.opencontainers.image.source="https://github.com/yobasystems/alpine-mariadb" \
-    org.opencontainers.image.base.name="docker.io/yobasystems/alpine:3.21.2" \
+    org.opencontainers.image.base.name="docker.io/yobasystems/alpine:3.21.3" \
     org.opencontainers.image.revision=$VCS_REF \
     org.opencontainers.image.created=$BUILD_DATE
 
