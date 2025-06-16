@@ -4,13 +4,13 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/yobasystems/alpine-mariadb.svg?style=for-the-badge&logo=docker)](https://hub.docker.com/r/yobasystems/alpine-mariadb/)
 [![Docker Stars](https://img.shields.io/docker/stars/yobasystems/alpine-mariadb.svg?style=for-the-badge&logo=docker)](https://hub.docker.com/r/yobasystems/alpine-mariadb/)
 
-[![Alpine Version](https://img.shields.io/badge/Alpine%20version-v3.21.3-green.svg?style=for-the-badge&logo=alpine-linux)](https://alpinelinux.org/)
+[![Alpine Version](https://img.shields.io/badge/Alpine%20version-v3.22.0-green.svg?style=for-the-badge&logo=alpine-linux)](https://alpinelinux.org/)
 [![MariaDB Version](https://img.shields.io/badge/Mariadb%20version-v11.4.5-green.svg?style=for-the-badge&logo=mariadb)](https://mariadb.org/)
 
 
 This Container image [(yobasystems/alpine-mariadb)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) is based on the minimal [Alpine Linux](https://alpinelinux.org/) with [MariaDB v11.4.5](https://mariadb.org/) (MySQL Compatible) database server.
 
-### Alpine Version 3.21.3 (Released 2025-02-13)
+### Alpine Version 3.22.0 (Released 2025-05-30)
 ##### MariaDB Version 11.4.5
 
 ----
@@ -67,16 +67,16 @@ MariaDB is developed as open source software and as a relational database it pro
 ## 📏 Layers & Sizes
 
 ![Version](https://img.shields.io/badge/version-amd64-blue.svg?style=for-the-badge)
-![MicroBadger Layers (tag)](https://img.shields.io/docker/layers/yobasystems/alpine-mariadb/amd64.svg?style=for-the-badge)
-![MicroBadger Size (tag)](https://img.shields.io/docker/image-size/yobasystems/alpine-mariadb/amd64.svg?style=for-the-badge)
+![Docker Image Version (tag)](https://img.shields.io/docker/v/yobasystems/alpine-mariadb/amd64.svg?style=for-the-badge)
+![Docker Image Size (tag)](https://img.shields.io/docker/image-size/yobasystems/alpine-mariadb/amd64.svg?style=for-the-badge)
 
 ![Version](https://img.shields.io/badge/version-aarch64-blue.svg?style=for-the-badge)
-![MicroBadger Layers (tag)](https://img.shields.io/docker/layers/yobasystems/alpine-mariadb/aarch64.svg?style=for-the-badge)
-![MicroBadger Size (tag)](https://img.shields.io/docker/image-size/yobasystems/alpine-mariadb/aarch64.svg?style=for-the-badge)
+![Docker Image Version (tag)](https://img.shields.io/docker/v/yobasystems/alpine-mariadb/aarch64.svg?style=for-the-badge)
+![Docker Image Size (tag)](https://img.shields.io/docker/image-size/yobasystems/alpine-mariadb/aarch64.svg?style=for-the-badge)
 
 ![Version](https://img.shields.io/badge/version-armhf-blue.svg?style=for-the-badge)
-![MicroBadger Layers (tag)](https://img.shields.io/docker/layers/yobasystems/alpine-mariadb/armhf.svg?style=for-the-badge)
-![MicroBadger Size (tag)](https://img.shields.io/docker/image-size/yobasystems/alpine-mariadb/armhf.svg?style=for-the-badge)
+![Docker Image Version (tag)](https://img.shields.io/docker/v/yobasystems/alpine-mariadb/armhf.svg?style=for-the-badge)
+![Docker Image Size (tag)](https://img.shields.io/docker/image-size/yobasystems/alpine-mariadb/armhf.svg?style=for-the-badge)
 
 
 ## 🚀 How to use this image
@@ -264,14 +264,6 @@ docker service create \
 * [Yoba Systems](https://yoba.systems/)
 * [Github - Yoba Systems](https://github.com/yobasystems/)
 * [Dockerhub - Yoba Systems](https://hub.docker.com/u/yobasystems/)
-* [Quay.io - Yoba Systems](https://quay.io/organization/yobasystems)
 * [GHCR - Yoba Systems](https://ghcr.io/yobasystems)
+* [Quay.io - Yoba Systems](https://quay.io/organization/yobasystems)
 * [Maintainer - Dominic Taylor](https://github.com/dominictayloruk)
-
-## 💰 Donation
-
-[![BMAC](https://img.shields.io/badge/BUY%20ME%20A%20COFFEE-£5-blue.svg?style=for-the-badge&logo=buy-me-a-coffee)](https://www.buymeacoffee.com/dominictayloruk?new=1)
-
-[![BITCOIN](https://img.shields.io/badge/BTC-bc1q7hy8qmyvq7rw6slrna7yffcdnj9rcg4e9xjecc-blue.svg?style=for-the-badge&logo=bitcoin)](bitcoin:bc1q7hy8qmyvq7rw6slrna7yffcdnj9rcg4e9xjecc)
-
-[![ETHEREUM](https://img.shields.io/badge/ETH-0xb6bE2e4da3d86b50Bdae1F9B6960c23dd87C532C-blue.svg?style=for-the-badge&logo=ethereum)](ethereum:0xb6bE2e4da3d86b50Bdae1F9B6960c23dd87C532C)
