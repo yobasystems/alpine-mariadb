@@ -5,13 +5,13 @@
 [![Docker Stars](https://img.shields.io/docker/stars/yobasystems/alpine-mariadb.svg?style=for-the-badge&logo=docker)](https://hub.docker.com/r/yobasystems/alpine-mariadb/)
 
 [![Alpine Version](https://img.shields.io/badge/Alpine%20version-v3.22.1-green.svg?style=for-the-badge&logo=alpine-linux)](https://alpinelinux.org/)
-[![MariaDB Version](https://img.shields.io/badge/Mariadb%20version-v11.4.5-green.svg?style=for-the-badge&logo=mariadb)](https://mariadb.org/)
+[![MariaDB Version](https://img.shields.io/badge/Mariadb%20version-v11.4.8-green.svg?style=for-the-badge&logo=mariadb)](https://mariadb.org/)
 
 
-This Container image [(yobasystems/alpine-mariadb)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) is based on the minimal [Alpine Linux](https://alpinelinux.org/) with [MariaDB v11.4.5](https://mariadb.org/) (MySQL Compatible) database server.
+This Container image [(yobasystems/alpine-mariadb)](https://hub.docker.com/r/yobasystems/alpine-mariadb/) is based on the minimal [Alpine Linux](https://alpinelinux.org/) with [MariaDB v11.4.8](https://mariadb.org/) (MySQL Compatible) database server.
 
 ### Alpine Version 3.22.1 (Released 2025-07-15)
-##### MariaDB Version 11.4.5
+##### MariaDB Version 11.4.8
 
 ----
 
@@ -62,20 +62,17 @@ MariaDB is developed as open source software and as a relational database it pro
 * ```:amd64```, ```:x86_64```  amd64 based on latest tag but amd64 architecture
 * ```:aarch64```, ```:arm64v8``` Armv8 based on latest tag but arm64 architecture
 * ```:armhf```, ```:arm32v7``` Armv7 based on latest tag but arm32 architecture
-* ```:version``` Version tags e.g ```:10```, ```:10.11```, ```11.4.5```
+* ```:version``` Version tags e.g ```:10```, ```:10.11```, ```11.4.8```
 
 ## 📏 Layers & Sizes
 
 ![Version](https://img.shields.io/badge/version-amd64-blue.svg?style=for-the-badge)
-![Docker Image Version (tag)](https://img.shields.io/docker/v/yobasystems/alpine-mariadb/amd64.svg?style=for-the-badge)
 ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/yobasystems/alpine-mariadb/amd64.svg?style=for-the-badge)
 
 ![Version](https://img.shields.io/badge/version-aarch64-blue.svg?style=for-the-badge)
-![Docker Image Version (tag)](https://img.shields.io/docker/v/yobasystems/alpine-mariadb/aarch64.svg?style=for-the-badge)
 ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/yobasystems/alpine-mariadb/aarch64.svg?style=for-the-badge)
 
 ![Version](https://img.shields.io/badge/version-armhf-blue.svg?style=for-the-badge)
-![Docker Image Version (tag)](https://img.shields.io/docker/v/yobasystems/alpine-mariadb/armhf.svg?style=for-the-badge)
 ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/yobasystems/alpine-mariadb/armhf.svg?style=for-the-badge)
 
 
@@ -249,7 +246,6 @@ docker service create \
 
 * [Github - yobasystems/alpine-mariadb](https://github.com/yobasystems/alpine-mariadb)
 * [Gitlab - yobasystems/alpine-mariadb](https://gitlab.com/yobasystems/alpine-mariadb)
-* [Bitbucket - yobasystems/alpine-mariadb](https://bitbucket.org/yobasystems/alpine-mariadb/)
 
 
 ## 🐳 Container Registries
