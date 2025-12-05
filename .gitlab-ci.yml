@@ -1,3 +1,13 @@
+workflow:
+  rules:
+    - changes:
+        - "alpine-*/**"
+        - "Dockerfile"
+        - "LICENSE"
+        - ".gitlab-ci.yml"
+      when: always
+    - when: never
+
 stages:
   - build
   - test
