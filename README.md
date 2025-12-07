@@ -27,7 +27,6 @@ This Container image [(yobasystems/alpine-mariadb)](https://hub.docker.com/r/yob
 - [Source Repositories](#source-repositories)
 - [Container Registries](#container-registries)
 - [Links](#links)
-- [Donation](#donation)
 
 ## 🏔️ What is Alpine Linux?
 
