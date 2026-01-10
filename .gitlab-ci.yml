@@ -15,7 +15,7 @@ stages:
   - manifest
 
 include:
-  - remote: https://gitlab.com/yobasystems/gitlab-ci-templates/raw/master/container_scanning_all_arch.yml
+  - remote: https://gitlab.com/yobasystems/gitlab-ci-templates/-/raw/main/container_scanning_all_arch.yml
   - template: Jobs/Secret-Detection.gitlab-ci.yml
   - template: Jobs/SAST.gitlab-ci.yml
 
