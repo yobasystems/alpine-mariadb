@@ -65,6 +65,7 @@ container_scanning_amd64:
     - amd64
   variables:
     CS_DOCKERFILE_PATH: "alpine-mariadb-amd64/Dockerfile"
+    CS_IMAGE: "${CI_REGISTRY_IMAGE}/${CI_COMMIT_SHORT_SHA}:${ARCH}"
     TRIVY_PLATFORM: "linux/amd64"
 
 container_scanning_armhf:
@@ -72,6 +73,7 @@ container_scanning_armhf:
     - aarch64 # Use aarch64 runner as there isnt an image for armhf
   variables:
     CS_DOCKERFILE_PATH: "alpine-mariadb-armhf/Dockerfile"
+    CS_IMAGE: "${CI_REGISTRY_IMAGE}/${CI_COMMIT_SHORT_SHA}:${ARCH}"
     TRIVY_PLATFORM: "linux/arm"
 
 container_scanning_aarch64:
@@ -79,6 +81,7 @@ container_scanning_aarch64:
     - aarch64
   variables:
     CS_DOCKERFILE_PATH: "alpine-mariadb-aarch64/Dockerfile"
+    CS_IMAGE: "${CI_REGISTRY_IMAGE}/${CI_COMMIT_SHORT_SHA}:${ARCH}"
     TRIVY_PLATFORM: "linux/arm64"
 
 sbom_amd64:
