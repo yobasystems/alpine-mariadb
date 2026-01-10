@@ -65,18 +65,21 @@ container_scanning_amd64:
     - amd64
   variables:
     CS_DOCKERFILE_PATH: "alpine-mariadb-amd64/Dockerfile"
+    TRIVY_PLATFORM: "linux/amd64"
 
 container_scanning_armhf:
   tags:
     - aarch64 # Use aarch64 runner as there isnt an image for armhf
   variables:
     CS_DOCKERFILE_PATH: "alpine-mariadb-armhf/Dockerfile"
+    TRIVY_PLATFORM: "linux/arm"
 
 container_scanning_aarch64:
   tags:
     - aarch64
   variables:
     CS_DOCKERFILE_PATH: "alpine-mariadb-aarch64/Dockerfile"
+    TRIVY_PLATFORM: "linux/arm64"
 
 sbom_amd64:
   tags:
