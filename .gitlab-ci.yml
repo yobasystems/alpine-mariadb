@@ -24,15 +24,20 @@ include:
   script:
     - echo "Build Timestamp ${CI_COMMIT_TIMESTAMP} - ${CI_COMMIT_SHORT_SHA}"
     - echo "Building for ARCH=${ARCH}, PLATFORM=linux/${PLATFORM}"
-    - apk add --update git
+    - apk add --no-cache --update git docker-cli-buildx
     - cd alpine-mariadb-${ARCH}/
-    - docker build
-      --build-arg VCS_REF=${CI_COMMIT_SHORT_SHA}
-      --build-arg BUILD_DATE=${CI_COMMIT_TIMESTAMP}
-      -t ${CI_REGISTRY_IMAGE}/${CI_COMMIT_SHORT_SHA}:${ARCH}
-      .
     - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token "$CI_REGISTRY" --password-stdin
-    - docker push ${CI_REGISTRY_IMAGE}/${CI_COMMIT_SHORT_SHA}:${ARCH}
+    - docker buildx create --name "buildx-${CI_JOB_ID}" --driver docker-container --use
+    - docker buildx inspect --bootstrap
+    - |
+      docker buildx build --platform linux/${PLATFORM} \
+        --build-arg VCS_REF=${CI_COMMIT_SHORT_SHA} \
+        --build-arg BUILD_DATE=${CI_COMMIT_TIMESTAMP} \
+        -t ${CI_REGISTRY_IMAGE}/${CI_COMMIT_SHORT_SHA}:${ARCH} \
+        --push \
+        .
+  after_script:
+    - docker buildx rm "buildx-${CI_JOB_ID}" || true
 
 amd64_mariadb_build:
   <<: *build_definition
