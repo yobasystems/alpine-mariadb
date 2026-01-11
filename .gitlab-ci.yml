@@ -20,11 +20,10 @@ include:
   - template: Jobs/SAST.gitlab-ci.yml
 
 .build_template: &build_definition
-  image: yobasystems/alpine-docker:dind
   stage: build
   script:
     - echo "Build Timestamp ${CI_COMMIT_TIMESTAMP} - ${CI_COMMIT_SHORT_SHA}"
-    - echo "Building for ARCH=${ARCH}, PLATFORM=${PLATFORM}"
+    - echo "Building for ARCH=${ARCH}, PLATFORM=linux/${PLATFORM}"
     - apk add --update git
     - cd alpine-mariadb-${ARCH}/
     - docker build
@@ -37,6 +36,7 @@ include:
 
 amd64_mariadb_build:
   <<: *build_definition
+  image: yobasystems/alpine-docker:amd64-dind
   tags:
     - amd64
   variables:
@@ -45,6 +45,7 @@ amd64_mariadb_build:
 
 arm32v7_mariadb_build:
   <<: *build_definition
+  image: yobasystems/alpine-docker:armhf-dind
   tags:
     - armhf
   variables:
@@ -53,6 +54,7 @@ arm32v7_mariadb_build:
 
 arm64v8_mariadb_build:
   <<: *build_definition
+  image: yobasystems/alpine-docker:aarch64-dind
   tags:
     - aarch64
   variables:
@@ -93,7 +95,6 @@ sbom_aarch64:
     - aarch64
 
 .deploy_template: &deploy_definition
-  image: yobasystems/alpine-docker:dind
   stage: deploy
   rules:
     - if: $CI_COMMIT_TAG
@@ -142,6 +143,7 @@ sbom_aarch64:
 
 amd64_mariadb_deploy:
   <<: *deploy_definition
+  image: yobasystems/alpine-docker:amd64-dind
   tags:
     - amd64
   variables:
@@ -155,6 +157,7 @@ amd64_mariadb_deploy:
 
 arm32v7_mariadb_deploy:
   <<: *deploy_definition
+  image: yobasystems/alpine-docker:armhf-dind
   tags:
     - armhf
   variables:
@@ -168,6 +171,7 @@ arm32v7_mariadb_deploy:
 
 arm64v8_mariadb_deploy:
   <<: *deploy_definition
+  image: yobasystems/alpine-docker:aarch64-dind
   tags:
     - aarch64
   variables:
